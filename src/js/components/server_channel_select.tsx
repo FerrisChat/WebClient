@@ -1,7 +1,7 @@
+// @ts-nocheck
 import { ServerChannelSelectData } from "../types";
-import ServerChannel from "./server_channel";
+import ServerChannel from "./server_channel.js";
 
-// @ts-ignore
 export default class ServerChannelSelect extends React.Component {
     data: ServerChannelSelectData;
 

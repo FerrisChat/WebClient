@@ -1,19 +1,13 @@
-// @ts-nocheck
-import { ServerChannelData } from "../types";
 import { ServerChannelType } from "../types.js";
-
 export default class ServerChannel extends React.Component {
-    data: ServerChannelData;
-
-    constructor(props: ServerChannelData) {
+    data;
+    constructor(props) {
         super(props);
         this.data = props;
     }
-
-    get _iconUrl(): string {
+    get _iconUrl() {
         // If custom channel icons/emojis are implemented, 
         // do it here
-
         switch (this.data.type) {
             case ServerChannelType.TEXT: return "";
             case ServerChannelType.VOICE: return "";
@@ -22,15 +16,10 @@ export default class ServerChannel extends React.Component {
             default: return "";
         }
     }
-
     render() {
-        return (
-            <div class="channels__channel" id={this.data.id}>
-                <img src={this._iconUrl} />
-                <span class="channels__channel__name">
-                    {this.data.name}
-                </span>
-            </div>
-        )
+        return (React.createElement("div", { class: "channels__channel", id: this.data.id },
+            React.createElement("img", { src: this._iconUrl }),
+            React.createElement("span", { class: "channels__channel__name" }, this.data.name)));
     }
 }
+//# sourceMappingURL=server_channel.js.map

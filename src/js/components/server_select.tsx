@@ -1,7 +1,7 @@
+// @ts-nocheck
 import { ServerSelectData } from "../types";
-import Server from "./server";
+import Server from "./server.js";
 
-// @ts-ignore
 export default class ServerSelect extends React.Component {
     data: ServerSelectData;
 

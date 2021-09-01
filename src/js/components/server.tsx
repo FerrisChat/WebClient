@@ -1,6 +1,6 @@
+// @ts-nocheck
 import { ServerData } from '../types';
 
-// @ts-ignore
 export default class Server extends React.Component {
     data: ServerData;
 

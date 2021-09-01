@@ -1,6 +1,6 @@
+// @ts-nocheck
 import { MessageData } from '../types';
 
-// @ts-ignore
 export default class Message extends React.Component {
     data: MessageData;
 

@@ -1,5 +1,5 @@
 import _Websocket from 'ws';
-import Client from '../client';
+import Client from '../client.js';
 
 export default class Websocket {
     _ws?: _Websocket;

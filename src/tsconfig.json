@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "outDir": "out",
+        "jsx": "react",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+    }
+}
