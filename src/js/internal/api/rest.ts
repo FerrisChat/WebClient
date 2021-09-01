@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import Client from '../client';
 
 const BASE_URL = "https://api.ferris.chat/v0/";
-const USER_AGENT = "FerrisChat Web Client v0.0.0 (https://github.com/jay3332/ferris-chat-web-client)";
+const USER_AGENT = "FerrisChat Web Client v0.0.0 (https://github.com/FerrisChannel/WebClient)";
 
 type RequestMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD" | "OPTIONS";
 
