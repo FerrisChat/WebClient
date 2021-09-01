@@ -1,11 +1,4 @@
-interface MessageData {
-    id: string;  // Sucks to be JS
-    content: string;
-    author: {
-        name: string;
-        avatarUrl: string;
-    }
-}
+import { MessageData } from '../types';
 
 // @ts-ignore
 export default class Message extends React.Component {

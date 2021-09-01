@@ -1,0 +1,30 @@
+:root {
+    --primary: #1a1c21;
+    --secondary: #121317;
+    --server-idle: rgba(255, 255, 255, 0.1);
+    --server-hover: rgba(255, 255, 255, 0.3);
+    --server-current: rgba(255, 255, 255, 0.5);
+}
+
+#servers {
+    background-color: var(--secondary);
+}
+
+.servers__server {
+    padding: 5px 5px 1px 5px;
+}
+
+.servers__server img {
+    width: 48px;
+    border-radius: 10px;
+    border: 3px solid var(--server-idle);
+    transition: ease-in 0.2s;
+}
+
+.current_server img {
+    border: 3px solid var(--server-current) !important;
+}
+
+.servers__server img:hover {
+    border: 3px solid var(--server-hover);
+}

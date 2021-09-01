@@ -1,4 +1,4 @@
-import Message from './components/message.js';
+import Message from './components/message';
 
 const MESSAGE = 
     "Don't paste anything into this console without knowing "
