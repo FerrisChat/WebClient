@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './components/Message';
+import MessageGroup from './components/MessageGroup';
+
 
 const MESSAGE = 
     "Don't paste anything into this console without knowing "
@@ -22,25 +24,15 @@ const exampleAuthor2 = {
 
 ReactDOM.render(
     <div id='chat'>
-        <Message id={'12345678'} content='hello' author={exampleAuthor} />
-        <Message id={'12345679'} content='hey' author={exampleAuthor2} />
-        <Message id={'12345680'} content={'hello, **pee**\nHow has your day been?'} author={exampleAuthor} />
+        <MessageGroup author={exampleAuthor}>
+            <Message id={'12345678'} content='hello' />
+        </MessageGroup>
+        <MessageGroup author={exampleAuthor2}>
+            <Message id={'12345679'} content='hey' />
+        </MessageGroup>
+        <MessageGroup author={exampleAuthor}>
+            <Message id={'12345680'} content={'hello, **pee**\nHow has your day been?'} />
+        </MessageGroup>
     </div>,
     document.getElementById('app'),
 );
-
-/*
-
-import MessageGroup from './components/MessageGroup';
-ReactDOM.render(
-    <div id='chat'>
-        <MessageGroup>
-            <Message id={'12345678'} content='hello' author={exampleAuthor} />
-            <Message id={'12345679'} content='hey' author={exampleAuthor2} />
-            <Message id={'12345680'} content={'hello, **pee**\nHow has your day been?'} author={exampleAuthor} />
-        </MessageGroup>
-    </div>,
-    document.getElementById('app')
-)
-
-*/
