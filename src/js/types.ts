@@ -4,9 +4,11 @@ export interface MessageAuthorProps {
     avatarUrl: string;
 }
 
+type MessageElement = { props: MessageProps };
+
 export interface MessageGroupProps {
     author: MessageAuthorProps;
-    children: any[],
+    children: MessageElement | MessageElement[],
 }
 
 export interface MessageProps {

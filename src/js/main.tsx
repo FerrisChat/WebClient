@@ -32,6 +32,9 @@ ReactDOM.render(
         </MessageGroup>
         <MessageGroup author={exampleAuthor}>
             <Message id={'12345680'} content={'hello, **pee**\nHow has your day been?'} />
+            <Message id={'12345681'} content={'***test***'} />
+            <Message id={'23094823908420985425898343433434'} content={'This is a message'} />
+            <Message id={'43094823908420985425898343433436'} content={'This is another message'} />
         </MessageGroup>
     </div>,
     document.getElementById('app'),
