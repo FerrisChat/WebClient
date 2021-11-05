@@ -1,10 +1,7 @@
 import React from 'react';
 import marked from 'marked';
+import DOMPurify from 'dompurify';
 import { parseSnowflake } from '../utils';
-// @ts-ignore
-import createDomPurify from '../modules/purify.min';
-
-const DOMPurify = createDomPurify(window);
 
 interface MessageProps {
     id: string | bigint,
