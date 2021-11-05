@@ -1,30 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
 :root {
-    --primary: #1a1c21;
-    --secondary: #121317;
-    --server-idle: rgba(255, 255, 255, 0.1);
-    --server-hover: rgba(255, 255, 255, 0.3);
-    --server-current: rgba(255, 255, 255, 0.5);
+  /* Theme */
+  --darkest: #23231a;
+  --darker: #292e30;
+  --dark: #35393b;
+  --primary: #629bb8;
+  --secondary: #4597a3;
+  --text: #ffffff;
+  
+  /* Chat */
+  --chat-font-size: 18px;
+  --chat-message-padding: 8px;
+  
+  /* Fonts */
+  --font-primary: 'Source Sans Pro', sans-serif;
+  --font-monospace: 'Fira Code', monospace;
 }
 
-#servers {
-    background-color: var(--secondary);
+* {
+  font-family: var(--font-primary);
 }
 
-.servers__server {
-    padding: 5px 5px 1px 5px;
+body {
+  background-color: var(--darkest);
+  color: var(--text);
 }
 
-.servers__server img {
-    width: 48px;
-    border-radius: 10px;
-    border: 3px solid var(--server-idle);
-    transition: ease-in 0.2s;
+#chat {
+  background-color: var(--darkest);
+  margin: 20px;
 }
 
-.current_server img {
-    border: 3px solid var(--server-current) !important;
+#chat .message-container {
+  padding: var(--chat-message-padding) 8px;
+  display: flex;
 }
 
-.servers__server img:hover {
-    border: 3px solid var(--server-hover);
+#chat .message-container * {
+  font-size: var(--chat-font-size);
+}
+
+#chat .message-container .message-display {
+  margin-left: 12px;
+}
+
+#chat .message-container .message-display .message-heading .message-author {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+#chat .message-container .message-display .message-heading .message-timestamp {
+  font-size: 0.85em;
+  margin-left: 10px;
+  opacity: 0.7;
+}
+
+#chat .message-container .message-display .message-content b {
+  font-weight: 800;
+}
+
+#chat .message-container .message-avatar img {
+  width: 2.5em;
+  border-radius: 50%;
+  box-shadow: 0px 0px 3px #000;
 }
