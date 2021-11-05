@@ -1,2 +1,2 @@
-# ferris-chat-web-client
+# FerrisChat Web Client
 FerrisChat's web client. Work in progress!
