@@ -6,3 +6,36 @@ export function parseSnowflake(snowflake: string | bigint): Date {
 
     return new Date(Number(snowflake >> 64n) + FERRIS_EPOCH_MS)
 }
+
+export function isSameDay(date: Date, now: Date): boolean {
+    return (
+        date.getDate() === now.getDate()
+        && date.getMonth() === now.getMonth()
+        && date.getFullYear() === now.getFullYear()
+    )
+}
+
+export function humanizeDate(date: Date): string {
+    const now = Date.now();
+
+    let day;
+    if (isSameDay(date, new Date(now))) {
+        day = 'Today'
+    } else if (isSameDay(date, new Date(now - 86400))) {
+        day = 'Yesterday'
+    } else if (isSameDay(date, new Date(now + 86400))) {
+        day = 'Tomorrow'
+    } else {
+        day = date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        });  // TODO: Support for customizable locales
+    }
+
+    return day + ` at ${date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+    })}`
+}

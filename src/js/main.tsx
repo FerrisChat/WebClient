@@ -8,6 +8,8 @@ const MESSAGE =
 
 console.log('%c' + MESSAGE, 'font-size:23px;');
 
+// Below are tests/debugging 
+
 const exampleAuthor = {
 	name: 'jay3332',
   avatarUrl: 'https://cdn.discordapp.com/avatars/414556245178056706/4420a414ad5831e914ca44bb1266e229.png?size=2048'
@@ -26,3 +28,19 @@ ReactDOM.render(
     </div>,
     document.getElementById('app'),
 );
+
+/*
+
+import MessageGroup from './components/MessageGroup';
+ReactDOM.render(
+    <div id='chat'>
+        <MessageGroup>
+            <Message id={'12345678'} content='hello' author={exampleAuthor} />
+            <Message id={'12345679'} content='hey' author={exampleAuthor2} />
+            <Message id={'12345680'} content={'hello, **pee**\nHow has your day been?'} author={exampleAuthor} />
+        </MessageGroup>
+    </div>,
+    document.getElementById('app')
+)
+
+*/
