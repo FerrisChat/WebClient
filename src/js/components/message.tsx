@@ -1,6 +1,10 @@
 import React from 'react';
 import marked from 'marked';
 import { parseSnowflake } from '../utils';
+// @ts-ignore
+import createDomPurify from '../modules/purify.min';
+
+const DOMPurify = createDomPurify(window);
 
 interface MessageProps {
     id: string | bigint,
@@ -56,7 +60,7 @@ export default function Message({ id, content, author }: MessageProps) {
                     <span className='message-timestamp'>{timestamp}</span>
                 </div>
                 <div className='message-content' dangerouslySetInnerHTML={
-        	        { __html: marked.parseInline(content.replace(/ {0,1}\n/g, "  \n")) }
+        	        { __html: DOMPurify.sanitize(marked.parseInline(content.replace(/ {0,1}\n/g, "  \n"))) }
                 } />
             </div>
   	    </div>
