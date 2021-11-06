@@ -1,5 +1,5 @@
 export interface MessageAuthorProps {
-    id?: string | bigint;
+    id: string | bigint;
     name: string;
     avatarUrl: string;
 }
@@ -14,4 +14,10 @@ export interface MessageGroupProps {
 export interface MessageProps {
     id: string | bigint;
     content: string;
+}
+
+export interface MessageData {
+    id: string | bigint;
+    content: string;
+    author: MessageAuthorProps;
 }
