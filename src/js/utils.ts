@@ -1,10 +1,16 @@
 export const FERRIS_EPOCH_MS: number = 1_577_836_800_000;
+const BIGINT_64: bigint = BigInt(64);  // Some browsers do not support bigint literals (e.g. 64n)
 
 export function parseSnowflake(snowflake: string | bigint): Date {
     if (typeof snowflake === 'string')
         snowflake = BigInt(snowflake);
 
-    return new Date(Number(snowflake >> 64n) + FERRIS_EPOCH_MS)
+    return new Date(Number(snowflake >> BIGINT_64) + FERRIS_EPOCH_MS)
+}
+
+export function generateSnowflake(): bigint {
+    const now = Date.now();
+    return BigInt(now - FERRIS_EPOCH_MS) << BIGINT_64;
 }
 
 export function isSameDay(date: Date, now: Date): boolean {
@@ -38,4 +44,10 @@ export function humanizeDate(date: Date): string {
         minute: '2-digit',
         hour12: true,
     })}`
+}
+
+export function decodeHTML(html: string): string {
+    let area = document.createElement("textarea");
+    area.innerHTML = html;
+    return area.value;
 }

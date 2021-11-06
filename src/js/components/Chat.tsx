@@ -1,6 +1,7 @@
 import React from 'react';
 import Message from './Message';
 import MessageGroup from './MessageGroup';
+import { decodeHTML, generateSnowflake } from '../utils';
 import { MessageData } from '../types';
 
 function processMessages(messages: MessageData[]): any[] {
@@ -32,22 +33,58 @@ function processMessages(messages: MessageData[]): any[] {
     return processed
 }
 
-export default class Chat<P = { channelId: string }> extends React.Component<P, { messages: MessageData[] }> {
+type P = { channelId: string, messages?: MessageData[] };
+
+export default class Chat extends React.Component<P, { messages: MessageData[] }> {
     constructor(props: P) {
         super(props);
         this.state = {
-            messages: [],
+            messages: props.messages || [],
+        };
+
+        this.onKeyPress = this.onKeyPress.bind(this);
+    }
+
+    onKeyPress(event: KeyboardEvent) {
+        if (event.shiftKey) return;
+        if (event.key === 'Enter') {
+            event.preventDefault();
+
+            let textarea = document.getElementById('chat-input-textarea')!;
+            const content = decodeHTML(textarea.innerHTML).trim();
+            if (!content) return;
+
+            this.state.messages.push({
+                author: {
+                    id: '1',
+                    name: 'pee',
+                    avatarUrl: 'https://cdn.discordapp.com/emojis/596576798351949847.png',
+                },
+                id: generateSnowflake().toString(),
+                content,
+            });
+            this.forceUpdate();
+            textarea.innerHTML = '';
         }
     }
 
     render() {
         return (
-            <div className='chat'>
+            <div id='chat'>
                 <div className='chat-messages'>
                     {processMessages(this.state.messages)}
                 </div>
-                <div className='chat-input-box'>
-                    {/* TODO */}
+                <div className='chat-input-container'>
+                    <div className='chat-input'>
+                        <div 
+                            id='chat-input-textarea' 
+                            contentEditable='true' 
+                            placeholder='Send a message...' 
+                            spellCheck='false'
+                            // @ts-ignore
+                            onKeyPress={this.onKeyPress}
+                        />
+                    </div>
                 </div>
             </div>
         )
