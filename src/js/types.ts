@@ -21,3 +21,13 @@ export interface MessageData {
     content: string;
     author: MessageAuthorProps;
 }
+
+export interface UserData {
+    id: number;
+    id_string: string;
+    name: string;
+    avatar?: string | null;
+    guilds?: any[] | null;
+    flags: number;
+    discriminator: number;
+}

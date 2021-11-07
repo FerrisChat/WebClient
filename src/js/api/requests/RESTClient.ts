@@ -1,8 +1,11 @@
+import { UserData } from '../../types';
+
 export type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE' | 'HEAD' | 'OPTIONS';
+export const BASE_URL: string = 'https://api.ferris.chat/v0';
 
 export default class RESTClient {
-    BASE_URL: string = 'https://api.ferris.chat/v0';
     token?: string;
+    user?: UserData;
 
     constructor({
         email,
@@ -12,7 +15,7 @@ export default class RESTClient {
         email?: string,
         password?: string,
         token?: string,
-    }) {
+    } = {}) {
         if (token)
             this.token = token;
         else if (email && password)
@@ -22,7 +25,7 @@ export default class RESTClient {
     async authenticate(email: string, password: string): Promise<string> {
         console.info('Authenticating with credentials...');
 
-        const response = await fetch(this.BASE_URL + '/auth', {
+        const response = await fetch(BASE_URL + '/auth', {
             method: 'POST',
             headers: {
                 // @ts-ignore
@@ -33,6 +36,29 @@ export default class RESTClient {
         const json = await response.json();
         console.info('Successfully logged in.');
         return json.token;
+    }
+
+    static async register(username: string, email: string, password: string): Promise<RESTClient> {
+        console.info('Registering new account...');
+
+        const response = await fetch(BASE_URL + '/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                password,
+            }),
+        });
+
+        if (response.status > 299)
+            console.error(`Could not register account. ${response.status} ${response.statusText}`);
+
+        const cls = new this({ email, password });
+        cls.user = await response.json();
+        return cls;
     }
 
     async request(method: RequestMethod, route: string, {
@@ -56,7 +82,7 @@ export default class RESTClient {
 
         const queryParams = !params ? '' : '?' + new URLSearchParams(params).toString()
 
-        const response = await fetch(this.BASE_URL + route + queryParams, {
+        const response = await fetch(BASE_URL + route + queryParams, {
             method,
             headers,
             // @ts-ignore
@@ -64,7 +90,7 @@ export default class RESTClient {
         });
 
         if (!response.ok) { 
-            console.warn(`Received ${response.status}: ${response.statusText} when requesting to ${route}`);
+            console.error(`Received ${response.status}: ${response.statusText} when requesting to ${route}`);
             return
         }
 

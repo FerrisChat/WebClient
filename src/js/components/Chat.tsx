@@ -71,19 +71,21 @@ export default class Chat extends React.Component<P, { messages: MessageData[] }
     render() {
         return (
             <div id='chat'>
-                <div className='chat-messages'>
-                    {processMessages(this.state.messages)}
-                </div>
-                <div className='chat-input-container'>
-                    <div className='chat-input'>
-                        <div 
-                            id='chat-input-textarea' 
-                            contentEditable='true' 
-                            placeholder='Send a message...' 
-                            spellCheck='false'
-                            // @ts-ignore
-                            onKeyPress={this.onKeyPress}
-                        />
+                <div className='chat-items'>
+                    <div className='chat-messages'>
+                        {processMessages(this.state.messages)}
+                    </div>
+                    <div className='chat-input-container'>
+                        <div className='chat-input'>
+                            <div 
+                                id='chat-input-textarea' 
+                                contentEditable='true' 
+                                placeholder='Send a message...' 
+                                spellCheck='false'
+                                // @ts-ignore
+                                onKeyPress={this.onKeyPress}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
