@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Chat from './components/Chat';
+import Login from './components/LoginForm';
 import API from './api/API';
+import LoginForm from './components/LoginForm';
+
+declare global {
+    interface Window { api?: API; }
+}
 
 const MESSAGE = 
     "Don't paste anything into this console without knowing "
@@ -46,10 +52,8 @@ const messages = [
   }
 ]
 
-// @ts-ignore
-window.api = new API();
-
 ReactDOM.render(
-    <Chat channelId="12345" messages={messages} />,
+    // <Chat channelId="12345" messages={messages} />,
+    <LoginForm />,
     document.getElementById('app'),
 );
