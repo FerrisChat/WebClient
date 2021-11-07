@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Chat from './components/Chat';
+import API from './api/API';
 
 const MESSAGE = 
     "Don't paste anything into this console without knowing "
@@ -44,6 +45,9 @@ const messages = [
     id: "980783036336131893731250143232"
   }
 ]
+
+// @ts-ignore
+window.api = new API();
 
 ReactDOM.render(
     <Chat channelId="12345" messages={messages} />,
