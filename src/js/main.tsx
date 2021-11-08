@@ -38,18 +38,13 @@ console.log('%c' + MESSAGE, 'font-size:23px;');
 const path = window.location.pathname.replace(/\/+$/g, '');
 let element;
 
-let js_fuck;
-
-if ((path === '/WebClient' || !window.api?.token) && ! ['/WebClient/login', '/WebClient/register'].includes(path)) {
-    window.location.pathname = '/WebClient/login';  // TODO: Cookies
-    js_fuck = true;
+if ((path === '/' || !window.api?.token) && ! ['/login', '/register'].includes(path)) {
+    window.location.pathname = '/login';  // TODO: Cookies
 }
 
-const new_path = window.location.pathname.replace(/\/+$/g, '');
-
-if (js_fuck === true)
+if (path === '/login')
     element = <LoginForm />;
-else if (new_path === '/WebClient/register')
+else if (path === '/register')
     element = <RegisterForm />;
 else {
     throw new Error('page unimplemented')
