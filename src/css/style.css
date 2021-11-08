@@ -205,22 +205,22 @@ a:hover {
     transform: rotate(0deg);
   }
   50% {
-    transform: rotate(359deg);
+    transform: rotate(720deg);
   }
-  0% {
+  100% {
     transform: rotate(0deg);
   }
 }
 
 @keyframes blink {
   0% {
-    opacity: 0.3
+    opacity: 0.2
   }
   50% {
     opacity: 0.5
   }
   100% {
-    opacity: 0.3
+    opacity: 0.2
   }
 }
 
