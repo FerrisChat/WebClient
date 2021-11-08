@@ -9,5 +9,6 @@ export default defineConfig({
         hmr: {
             port: 3000,
         }
-    }
+    },
+    base: '/WebClient/',
 })
