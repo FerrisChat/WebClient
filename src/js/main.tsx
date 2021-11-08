@@ -22,7 +22,7 @@ window.waitForAPI = async () => {
 window.showLoading = () => {
     ReactDOM.render(
         <div className='loading-screen'>
-            <img src='https://ferris.chat/assets/img/rustacean-orig-noshadow.svg?h=fbe685f59b2d99b250e541ff3f5d6388' alt='Ferris' />
+            <img src='./assets/ferris.png' alt='Ferris' />
             <h2>Loading...</h2>
         </div>,
         document.getElementById('app'),

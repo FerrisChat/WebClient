@@ -231,6 +231,7 @@ a:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 10px;
 }
 
 .loading-screen img {
@@ -242,8 +243,8 @@ a:hover {
 
 .loading-screen h2 {
   text-align: center;
-  font-size: 48px;
+  font-size: 40px;
   opacity: 0.5;
-  padding-top: 56px;
+  padding-top: 10vh;
   animation: blink 3s infinite;
 }
