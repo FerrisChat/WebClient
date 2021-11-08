@@ -35,12 +35,14 @@ const MESSAGE =
 
 console.log('%c' + MESSAGE, 'font-size:23px;');
 
-const path = window.location.pathname.replace(/\/+$/g, '');
+let path = window.location.pathname.replace(/\/+$/g, '');
 let element;
 
 if ((path === '/WebClient' || !window.api?.token) && ! ['/WebClient/login', '/WebClient/register'].includes(path)) {
     window.location.pathname = '/WebClient/login';  // TODO: Cookies
 }
+
+let path = window.location.pathname.replace(/\/+$/g, '');
 
 if (path === '/WebClient/login')
     element = <LoginForm />;
