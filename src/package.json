@@ -6,7 +6,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview"
   },
-  "homepage": "https://client.ferris.chat/",
+  "homepage": "https://app.ferris.chat/",
   "dependencies": {
     "dompurify": "^2.3.0",
     "markdown-it": "^12.2.0",
