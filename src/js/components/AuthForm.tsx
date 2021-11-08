@@ -13,7 +13,7 @@ export default class AuthForm extends React.Component<P, {}> {
                 <div className='auth-form'>
                     <div className='auth-form-contents'>
                         <h1>{this.props.title}</h1>
-                        <div className='auth-form-fields'>{this.props.children}</div>
+                        <form className='auth-form-fields'>{this.props.children}</form>
                         <div className='auth-form-submit' onClick={this.props.onSubmit}>{this.props.button}</div>
                     </div>
                 </div>
