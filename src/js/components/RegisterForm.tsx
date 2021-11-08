@@ -10,14 +10,14 @@ export default class RegisterForm extends React.Component<{}, {}> {
     }
 
     onSubmit() {
-        API.fromRegistration({
+        window.api = API.fromRegistration({
             // @ts-ignore
             username: document.getElementById('auth-form-field__username')!.value,
             // @ts-ignore
             email: document.getElementById('auth-form-field__email')!.value,
             // @ts-ignore
             password: document.getElementById('auth-form-field__password')!.value,
-        }).then(api => window.api = api);
+        })
     }
 
     render() {

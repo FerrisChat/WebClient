@@ -1,12 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Chat from './components/Chat';
-import Login from './components/LoginForm';
-import API from './api/API';
 import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
+import API from './api/API';
 
 declare global {
-    interface Window { api?: API; }
+    interface Window {
+        api?: API;
+        waitForAPI(): Promise<API>;
+        showLoading(): void;
+        _apiPromise: Promise<API>;
+        _resolver: Function;
+    }
+}
+
+window._apiPromise = new Promise(r => window._resolver = r);
+window.waitForAPI = async () => {
+    return await window._apiPromise;
+}
+
+window.showLoading = () => {
+    ReactDOM.render(
+        <div className='loading-screen'>
+            <img src='https://ferris.chat/assets/img/rustacean-orig-noshadow.svg?h=fbe685f59b2d99b250e541ff3f5d6388' alt='Ferris' />
+            <h2>Loading...</h2>
+        </div>,
+        document.getElementById('app'),
+    )
 }
 
 const MESSAGE = 
@@ -15,45 +35,27 @@ const MESSAGE =
 
 console.log('%c' + MESSAGE, 'font-size:23px;');
 
-// Below are tests/debugging 
+const path = window.location.pathname.replace(/\/+$/g, '');
+let element;
 
-const exampleAuthor = {
-  id: '0',
-	name: 'jay3332',
-  avatarUrl: 'https://cdn.discordapp.com/avatars/414556245178056706/4420a414ad5831e914ca44bb1266e229.png?size=2048'
+if ((path === '/' || !window.api?.token) && ! ['/login', '/register'].includes(path)) {
+    window.location.pathname = '/login';  // TODO: Cookies
 }
 
-const exampleAuthor2 = {
-  id: '1',
-	name: 'pee',
-  avatarUrl: 'https://cdn.discordapp.com/emojis/596576798351949847.png',
+if (path === '/login')
+    element = <LoginForm />;
+else if (path === '/register')
+    element = <RegisterForm />;
+else {
+    throw new Error('page unimplemented')
 }
-
-const messages = [
-  {
-    content: "funny i am",
-    id: "979783036336131893731250143232",
-    author: exampleAuthor
-  },
-  { 
-    content: "wrong you are.",
-    id: "979883036336131893731250143232",
-    author: exampleAuthor2,
-  },
-  { 
-    content: "*abcd* **efg** ***hijk*** __lmnop__ __**test**__",
-    author: exampleAuthor,
-    id: "978183036336131893731250143232"
-  },
-  { 
-    content: "message group test",
-    author: exampleAuthor,
-    id: "980783036336131893731250143232"
-  }
-]
 
 ReactDOM.render(
     // <Chat channelId="12345" messages={messages} />,
-    <LoginForm />,
+    element,
     document.getElementById('app'),
 );
+
+import W from './api/requests/WebSocketClient';
+// @ts-ignore
+window.WSC = W;  // ws console testing

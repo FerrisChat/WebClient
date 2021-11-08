@@ -7,6 +7,8 @@ export default class RESTClient {
     token?: string;
     user?: UserData;
 
+    _authenticatePromise?: Promise<string>;
+
     constructor({
         email,
         password,
@@ -19,7 +21,7 @@ export default class RESTClient {
         if (token)
             this.token = token;
         else if (email && password)
-            this.authenticate(email, password).then(token => this.token = token);
+            this._authenticatePromise = this.authenticate(email, password).then(token => this.token = token);
     }
 
     async authenticate(email: string, password: string): Promise<string> {
@@ -33,12 +35,18 @@ export default class RESTClient {
                 Password: password,
             },
         });
+
+        if (response.status > 299) {
+            console.error(`Could not log in with given credentials. ${response.status} ${response.statusText}`);
+            throw new Error()
+        }
+
         const json = await response.json();
         console.info('Successfully logged in.');
         return json.token;
     }
 
-    static async register(username: string, email: string, password: string): Promise<RESTClient> {
+    async register(username: string, email: string, password: string): Promise<UserData | undefined> {
         console.info('Registering new account...');
 
         const response = await fetch(BASE_URL + '/users', {
@@ -53,12 +61,14 @@ export default class RESTClient {
             }),
         });
 
-        if (response.status > 299)
+        if (response.status > 299) {
             console.error(`Could not register account. ${response.status} ${response.statusText}`);
+            throw new Error()
+        }
 
-        const cls = new this({ email, password });
-        cls.user = await response.json();
-        return cls;
+        this.user = await response.json();
+        this.token = await this.authenticate(email, password);
+        return this.user;
     }
 
     async request(method: RequestMethod, route: string, {

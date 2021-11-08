@@ -31,3 +31,28 @@ export interface UserData {
     flags: number;
     discriminator: number;
 }
+
+export interface ChannelData {
+    id: number;
+    id_string: string;
+    name: string;
+    guild_id: number;
+    guild_id_string: string;
+}
+
+export interface MemberData {
+    user_id: number;
+    user?: UserData;
+    guild_id: number;
+    guild?: GuildData;
+}
+
+export interface GuildData {
+    id: number;
+    id_string: string;
+    owner_id: number;
+    owner_id_string: string;
+    name: string;
+    channels: ChannelData[];
+    members: MemberData[];
+}
