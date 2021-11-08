@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+} from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import API from './api/API';
@@ -35,24 +40,18 @@ const MESSAGE =
 
 console.log('%c' + MESSAGE, 'font-size:23px;');
 
-const path = window.location.pathname.replace(/\/+$/g, '');
-let element;
-
-if ((path === '/' || !window.api?.token) && ! ['/login', '/register'].includes(path)) {
-    window.location.pathname = '/login';  // TODO: Cookies
-}
-
-if (path === '/login')
-    element = <LoginForm />;
-else if (path === '/register')
-    element = <RegisterForm />;
-else {
-    throw new Error('page unimplemented')
-}
+const loggedIn = window.api?.token;
+const defaultElement = loggedIn ? undefined : <LoginForm />;
 
 ReactDOM.render(
-    // <Chat channelId="12345" messages={messages} />,
-    element,
+    <BrowserRouter>
+        <Routes>
+            <Route path='/home' element={defaultElement} />
+            <Route path='/login' element={<LoginForm />} />
+            <Route path='/register' element={<RegisterForm />} />
+            <Route path='*' element={defaultElement} />
+        </Routes>
+    </BrowserRouter>,
     document.getElementById('app'),
 );
 
