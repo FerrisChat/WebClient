@@ -32,3 +32,4 @@ You can then start the production server by running ``npm run serve``:
 ```shell
 /WebClient/src> npm run serve
 ```
+You can also set the `dist` directory as a webroot.
