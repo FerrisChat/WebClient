@@ -1,4 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { Navigate } from 'react-router';
+
 import API from '../api/API';
 import AuthForm from './AuthForm';
 import AuthFormField from './AuthFormField';
@@ -10,12 +13,13 @@ export default class LoginForm extends React.Component<{}, {}> {
     }
 
     onSubmit() {
+        window.startApp();
         window.api = API.fromLogin({
             // @ts-ignore
             email: document.getElementById('auth-form-field__email')!.value,
             // @ts-ignore
             password: document.getElementById('auth-form-field__password')!.value,
-        })
+        });
     }
 
     render() {

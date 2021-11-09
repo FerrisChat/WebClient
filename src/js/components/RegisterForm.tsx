@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
+
 import API from '../api/API';
 import AuthForm from './AuthForm';
 import AuthFormField from './AuthFormField';
@@ -10,6 +12,7 @@ export default class RegisterForm extends React.Component<{}, {}> {
     }
 
     onSubmit() {
+        window.startApp();
         window.api = API.fromRegistration({
             // @ts-ignore
             username: document.getElementById('auth-form-field__username')!.value,
@@ -17,7 +20,7 @@ export default class RegisterForm extends React.Component<{}, {}> {
             email: document.getElementById('auth-form-field__email')!.value,
             // @ts-ignore
             password: document.getElementById('auth-form-field__password')!.value,
-        })
+        });
     }
 
     render() {

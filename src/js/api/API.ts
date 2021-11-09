@@ -6,13 +6,19 @@ export default class API {
     rest?: RESTClient;
     ws: WebSocketClient;
     user?: UserData;
+    guilds?: GuildData[];
     ongoingPromise?: Promise<any>;
+    
+    _readyPromise: Promise<void>;
+    _readyPromiseResolver?: Function;
 
     constructor({ rest, ws }: { rest?: RESTClient, ws?: WebSocketClient } = {}) {
         this.rest = rest;
         this.ws = ws || new WebSocketClient(this);
         this.wait().then(api => api.ws.connect());
         window._resolver(this);
+
+        this._readyPromise = new Promise(r => this._readyPromiseResolver = r);
     }
 
     static fromLogin({ email, password }: { email?: string, password?: string } = {}): API {
@@ -21,8 +27,14 @@ export default class API {
 
     static fromRegistration({ username, email, password }: { username: string, email: string, password: string }): API {
         const rest = new RESTClient();
-        rest.register(username, email, password);
-        return new this({ rest });
+        const cls = new this({ rest });
+        cls.ongoingPromise = rest.register(username, email, password);
+        return cls;
+    }
+
+    async updateGuilds(): Promise<void> {
+        const response = await this.rest!.request('GET', `/users/${this.userId}`);
+        this.guilds = response.guilds;
     }
 
     async wait(): Promise<API> {
@@ -31,12 +43,13 @@ export default class API {
         return this
     }
 
-    get userId(): string | undefined {
-        return this.user?.id_string;
+    async waitForReady(): Promise<API> {
+        await this._readyPromise;
+        return this;
     }
 
-    get guilds(): GuildData[] {
-        return this.user?.guilds || [];
+    get userId(): string | undefined {
+        return this.user?.id_string;
     }
 
     get token(): string | undefined {

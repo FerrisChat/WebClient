@@ -3,6 +3,7 @@ import API from '../API';
 export const WSEventHandlers: any = {
     IdentifyAccepted(ws: WebSocketClient, data: any) {
         ws.api.user = data.user;
+        ws.api.updateGuilds().then(_ => ws.api._readyPromiseResolver!());
     },
 }
 
@@ -11,7 +12,7 @@ export default class WebSocketClient {
     ws?: WebSocket;
 
     constructor(api: API) {
-        this.api = api;
+        this.api = api; 
     }
 
     get rest() {
