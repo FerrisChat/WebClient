@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Navigate } from 'react-router';
-
 import API from '../api/API';
 import AuthForm from './AuthForm';
 import AuthFormField from './AuthFormField';

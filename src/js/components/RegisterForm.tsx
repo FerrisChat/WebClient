@@ -1,6 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
-
 import API from '../api/API';
 import AuthForm from './AuthForm';
 import AuthFormField from './AuthFormField';
