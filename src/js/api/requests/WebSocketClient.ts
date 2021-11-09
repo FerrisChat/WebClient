@@ -1,5 +1,11 @@
 import API from '../API';
 
+export const WSEventHandlers: any = {
+    IdentifyAccepted(ws: WebSocketClient, data: any) {
+        ws.api.user = data.user;
+    },
+}
+
 export default class WebSocketClient {
     api: API;
     ws?: WebSocket;
@@ -17,8 +23,13 @@ export default class WebSocketClient {
         return response.url;
     }
 
-    parseMessage(message: any) {
+    parseMessage(message: MessageEvent) {
         console.log(message)
+
+        const parsed = JSON.parse(message.data);
+        const event = parsed.c;
+
+        if (event) WSEventHandlers[event]?.(this, parsed.d);
     }
 
     async connect() {

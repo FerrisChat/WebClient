@@ -5,8 +5,6 @@ export const BASE_URL: string = 'https://api.ferris.chat/v0';
 
 export default class RESTClient {
     token?: string;
-    user?: UserData;
-
     _authenticatePromise?: Promise<string>;
 
     constructor({
@@ -66,9 +64,8 @@ export default class RESTClient {
             throw new Error()
         }
 
-        this.user = await response.json();
         this.token = await this.authenticate(email, password);
-        return this.user;
+        return await response.json();
     }
 
     async request(method: RequestMethod, route: string, {
