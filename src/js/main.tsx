@@ -12,6 +12,7 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 
 import App from './App';
+import ferrisImage from './assets/ferris.png';
 
 declare global {
     interface Window {
@@ -32,7 +33,7 @@ window.waitForAPI = async () => {
 window.showLoading = () => {
     ReactDOM.render(
         <div className='loading-screen'>
-            <img src='./assets/ferris.png' alt='Ferris' />
+            <img src={ferrisImage} alt='Ferris' />
             <h2>Loading...</h2>
         </div>,
         document.getElementById('app'),
