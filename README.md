@@ -1,5 +1,5 @@
 # FerrisChat's Web Client
-The official **web** client for FerrisChat.
+The official **web** client for FerrisChat. [Try it out!](https://app.ferris.chat)
 
 ### ⚠️ **WARNING:** This client is not a native client - it is a client specifically made to be run in a browser.
 The official native client application repository can be found [here](https://github.com/FerrisChat/Client).
@@ -32,3 +32,4 @@ You can then start the production server by running ``npm run serve``:
 ```shell
 /WebClient/src> npm run serve
 ```
+You can also set the ``dist`` directory as a webroot. Note that this directory will be nested in the ``src`` directory.
