@@ -4,7 +4,7 @@ import {
     useParams,
 } from 'react-router-dom';
 
-import CommonLayout from './CommonLayout';
+import GuildLayout from './GuildLayout';
 
 export default function GuildHomepage() {
     const { guildId } = useParams();
@@ -14,11 +14,11 @@ export default function GuildHomepage() {
         useNavigate()('/home');
 
     return (
-        <CommonLayout>
+        <GuildLayout>
             <div className="generic-message">
                 <h1>Welcome to <b>{guild!.name}</b>!</h1>
                 <p>You may use the channel sidebar on the left to navigate this server.</p>
             </div>
-        </CommonLayout>
+        </GuildLayout>
     )
 }
