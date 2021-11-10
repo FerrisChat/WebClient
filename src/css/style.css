@@ -263,7 +263,11 @@ a:hover {
 .guild-select {
   overflow-y: scroll;
   background-color: var(--darkest);
-  padding: 8px;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: center;
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
 }
 
 .guild-select::-webkit-scrollbar {
@@ -336,4 +340,30 @@ a:hover {
 
 .generic-message p {
   font-size: 20px;
+}
+
+.channel-select {
+  width: 25%;
+  min-width: 180px;
+  max-width: 240px;
+  padding: 16px 16px 16px 4px;
+}
+
+.channel-select .channel-select-channel {
+  margin: 3px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 20px;
+  border-radius: 6px;
+  padding: 6px 12px;
+  display: block;
+  transition: background-color 0.4s ease;
+}
+
+.channel-select .channel-select-channel.active {
+  background-color: var(--darker);
+}
+
+.channel-select .channel-select-channel:hover {
+  background-color: var(--dark)
 }
