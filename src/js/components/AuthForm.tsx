@@ -5,6 +5,13 @@ type P = { children: any[], title: string, button: string, onSubmit(e: any): any
 export default class AuthForm extends React.Component<P, {}> {
     constructor(props: P) {
         super(props);
+        this.onKeyDown = this.onKeyDown.bind(this);
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            this.props.onSubmit(0)
+        }
     }
 
     render() {
@@ -13,7 +20,8 @@ export default class AuthForm extends React.Component<P, {}> {
                 <div className='auth-form'>
                     <div className='auth-form-contents'>
                         <h1>{this.props.title}</h1>
-                        <form className='auth-form-fields'>{this.props.children}</form>
+                        {/* @ts-ignore */}
+                        <form className='auth-form-fields' onKeyDown={this.onKeyDown}>{this.props.children}</form>
                         <div className='auth-form-submit' onClick={this.props.onSubmit}>{this.props.button}</div>
                     </div>
                 </div>
