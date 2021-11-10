@@ -4,8 +4,10 @@ import CommonLayout from './CommonLayout';
 export default function Home() {
     return (
         <CommonLayout>
-            <p>Hello, {window.api?.user?.name}!</p>
-            <p>You are in {window.api?.guilds?.length} guilds.</p>
+            <div className="generic-message">
+                <h1>Hello, <b>{window.api?.user?.name}</b>!</h1>
+                <p>You are in {window.api?.guilds?.length} guilds.</p>
+            </div>
         </CommonLayout>
     )
 }
