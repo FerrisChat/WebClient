@@ -2,6 +2,7 @@
 
 :root {
   /* Theme */
+  --pitch: #0a0b0b;
   --darkest: #23231a;
   --darker: #292e30;
   --dark: #35393b;
@@ -118,8 +119,18 @@ a:hover {
   opacity: 0.8
 }
 
+.app-content {
+  display: flex;
+}
+
+.main {
+  background-color: var(--darker);
+  width: 100%;
+  height: 100vh;
+}
+
 #chat {
-  background-color: var(--darkest);
+  background-color: var(--darker);
   height: 100%;
 }
 
@@ -247,4 +258,82 @@ a:hover {
   opacity: 0.5;
   padding-top: 10vh;
   animation: blink 3s infinite;
+}
+
+.guild-select {
+  overflow-y: scroll;
+  background-color: var(--darkest);
+  padding: 8px;
+}
+
+.guild-select::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+.guild-select .guild-select-guilds {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0px;
+}
+
+.guild-select .guild-select-guilds .guild-select-guild {
+  margin: 4px 8px;
+}
+
+.guild-select .guild-select-guilds .guild-select-guild:before {
+  content: attr(data-guild-name);
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-left: 15px;
+  transform: translateY(-50%);
+  width: 200px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--darkest);
+  text-align: center;
+  display: none;
+}
+
+.guild-select .guild-select-guilds .guild-select-guild:hover:before {
+  display: block;
+}
+
+.guild-select .guild-select-guilds .guild-select-guild img {
+  width: 48px;
+  border-radius: 50%;
+  transition: border-radius 0.5s ease;
+}
+
+.guild-select .guild-select-guilds .guild-select-guild img:hover,
+.guild-select .guild-select-guilds .guild-select-guild.active img {
+  border-radius: 40%;
+}
+
+.generic-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.generic-message * {
+  text-align: center;
+}
+
+.generic-message h1,
+.generic-message h2,
+.generic-message h3,
+.generic-message h4,
+.generic-message h5,
+.generic-message h6 {
+  font-weight: 600;
+  margin-top: 10%;
+  margin-bottom: 12px;
+  font-size: 36px;
+}
+
+.generic-message p {
+  font-size: 20px;
 }

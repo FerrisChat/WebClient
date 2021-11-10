@@ -8,6 +8,7 @@ import {
 
 import API from './api/API';
 import Home from './pages/Home';
+import GuildHomepage from './pages/GuildHomepage';
 
 type P = { api: API }
 
@@ -23,6 +24,7 @@ export default class App extends React.Component<P, {}> {
             <BrowserRouter>
                 <Routes>
                     <Route path='/home' element={<Home />} />
+                    <Route path='/channels/:guildId' element={<GuildHomepage />} />
                     <Route path='*' element={<Navigate to='/home' />} />
                 </Routes>
             </BrowserRouter>
