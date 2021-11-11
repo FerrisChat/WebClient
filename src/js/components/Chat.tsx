@@ -77,7 +77,7 @@ export default class Chat extends React.Component<P, { messages: MessageData[] }
                     </div>
                     <div className='chat-input-container'>
                         <div className='chat-input'>
-                            <div 
+                            <div
                                 id='chat-input-textarea' 
                                 contentEditable='true' 
                                 placeholder='Send a message...' 
