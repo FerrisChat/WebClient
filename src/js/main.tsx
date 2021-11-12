@@ -7,23 +7,11 @@ import {
     Navigate,
 } from 'react-router-dom';
 
-import API from './api/API';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 
 import App from './App';
 import ferrisImage from './assets/ferris.png';
-
-declare global {
-    interface Window {
-        api?: API;
-        waitForAPI(): Promise<API>;
-        showLoading(): void;
-        startApp(): void;
-        _apiPromise: Promise<API>;
-        _resolver: Function;
-    }
-}
 
 window._apiPromise = new Promise(r => window._resolver = r);
 window.waitForAPI = async () => {
