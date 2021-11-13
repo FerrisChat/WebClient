@@ -1,14 +1,18 @@
 import RESTClient from './requests/RESTClient';
 import WebSocketClient from './requests/WebSocketClient';
-import { GuildData, UserData } from '../types';
+import { GuildData, MessageData, UserData } from '../types';
 
 export default class API {
     rest?: RESTClient;
     ws: WebSocketClient;
+    
     user?: UserData;
     guilds?: GuildData[];
+    messages: Map<string, MessageData[]>;
+    loadedChannels: string[];
+    unreadChannels: string[];
+
     ongoingPromise?: Promise<any>;
-    
     _readyPromise: Promise<void>;
     _readyPromiseResolver?: Function;
 
@@ -19,6 +23,11 @@ export default class API {
         window._resolver(this);
 
         this._readyPromise = new Promise(r => this._readyPromiseResolver = r);
+
+        // preset
+        this.messages = new Map<string, MessageData[]>();
+        this.loadedChannels = [];
+        this.unreadChannels = [];
     }
 
     static fromLogin({ email, password }: { email?: string, password?: string } = {}): API {

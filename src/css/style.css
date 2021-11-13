@@ -165,8 +165,8 @@ a:hover {
 #chat .chat-items .chat-messages {
   padding: 20px;
   flex-grow: 1;
-  height: 93.3vh;
-  overflow: hidden scroll;
+  height: calc(100vh - 62px);
+  overflow: hidden auto;
   word-break: break-word;
   display: flex;
   flex-direction: column-reverse;
@@ -224,6 +224,8 @@ a:hover {
 #chat .chat-items .chat-input-container {
   background-color: var(--darkest);
   flex-grow: 1;
+  display: block;
+  flex-direction: row-reverse;
   box-sizing: border-box;
   bottom: 0;
 }
@@ -239,7 +241,9 @@ a:hover {
 #chat .chat-items .chat-input-container .chat-input #chat-input-textarea {
   outline: none;
   white-space: pre-wrap; 
-  overflow-wrap: break-word; 
+  overflow-wrap: break-word;
+  overflow-y: auto;
+  max-height: 300px;
   word-wrap: break-word;
   -webkit-user-modify: read-write-plaintext-only;
 }
@@ -386,7 +390,8 @@ a:hover {
 }
 
 .channel-select {
-  width: 200px;
+  width: 25%;
+  max-width: 250px;
   padding: 16px 16px 16px 4px;
 }
 

@@ -1,25 +1,14 @@
-export interface MessageAuthorProps {
-    id: string | bigint;
-    name: string;
-    avatarUrl: string;
-}
-
-type MessageElement = { props: MessageProps };
-
-export interface MessageGroupProps {
-    author: MessageAuthorProps;
-    children: MessageElement | MessageElement[],
-}
-
-export interface MessageProps {
-    id: string | bigint;
-    content: string;
-}
-
 export interface MessageData {
-    id: string | bigint;
+    id: number;
+    id_string: string;
     content: string;
-    author: MessageAuthorProps;
+    author: UserData;
+    author_id: number;
+    author_id_string: string;
+    channel_id: number;
+    channel_id_string: string;
+    edited_at: null;
+    embeds: null | any[];
 }
 
 export interface UserData {
@@ -28,7 +17,7 @@ export interface UserData {
     name: string;
     avatar?: string | null;
     guilds?: any[] | null;
-    flags: number;
+    flags?: number;
     discriminator: number;
 }
 

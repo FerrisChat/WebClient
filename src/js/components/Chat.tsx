@@ -1,8 +1,9 @@
 import React from 'react';
 import Message from './Message';
 import MessageGroup from './MessageGroup';
-import { decodeHTML, generateSnowflake } from '../utils';
+import { decodeHTML } from '../utils';
 import { MessageData } from '../types';
+import defaultAvatar from '../assets/avatar_default.png';
 
 function processMessages(messages: MessageData[]): any[] {
     if (!messages.length)
@@ -11,15 +12,15 @@ function processMessages(messages: MessageData[]): any[] {
     let buffer, element;
     let current: any[] = [];
     let processed = [];
-  
+
     for (const message of messages) {
-        element = <Message id={message.id} content={message.content} key={message.id as string} />;
+        element = <Message id={message.id_string} content={message.content} key={message.id_string} />;
     
-        if (!buffer?.id || message.author.id === buffer.id) 
+        if (!buffer?.id_string || message.author_id_string === buffer.id_string) 
             current.push(element);
         else {
             processed.push(
-                <MessageGroup author={buffer} key={current[0].props.id + ":" + current.length}>{current}</MessageGroup>
+                <MessageGroup author={buffer} key={current[0].props.id_string + ":" + current.length}>{current}</MessageGroup>
             );
             current = [element];
         }
@@ -28,21 +29,53 @@ function processMessages(messages: MessageData[]): any[] {
   
     processed.push(
         // @ts-ignore
-        <MessageGroup author={buffer} key={current[0].props.id + ":" + current.length}>{current}</MessageGroup>
+        <MessageGroup author={buffer} key={current[0].props.id_string + ":" + current.length}>{current}</MessageGroup>
     );
     return processed
 }
 
-type P = { channelId: string, messages?: MessageData[] };
+type P = { channelId: string };
 
-export default class Chat extends React.Component<P, { messages: MessageData[] }> {
+export default class Chat extends React.Component<P, { _: MessageData[] }> {
     constructor(props: P) {
         super(props);
-        this.state = {
-            messages: props.messages || [],
-        };
-
+        this.messages.push = (...args): any => {
+            Array.prototype.push.apply(this.messages, args);
+            this.forceUpdate();
+        }
+        this.state = { _: this.messages };
         this.onKeyPress = this.onKeyPress.bind(this);
+
+        if (!window.api!.loadedChannels.includes(this.props.channelId)) 
+            this.loadHistory();
+    }
+
+    get messages(): MessageData[] {
+        if (!window.api!.messages.has(this.props.channelId))
+            window.api!.messages.set(this.props.channelId, []);
+
+        return window.api!.messages.get(this.props.channelId)!
+    }
+
+    async loadHistory(limit: number = 200) {
+        const response = await window.api!.rest!.request('GET', `/channels/${this.props.channelId}/messages`, { params: { limit } });
+        window.api!.loadedChannels.push(this.props.channelId);
+        this.messages.splice(0, 0, ...response.messages.reverse().map(
+            (msg: MessageData) => {
+                // TODO: remove this when author field becomes available
+                return {
+                    ...msg,
+                    author: {
+                        id: msg.author_id,
+                        id_string: msg.author_id_string,
+                        name: "Unknown User",
+                        avatar: defaultAvatar,
+                        discriminator: 0,
+                    }
+                }
+            }
+        ));
+        this.forceUpdate();
     }
 
     onKeyPress(event: KeyboardEvent) {
@@ -54,16 +87,9 @@ export default class Chat extends React.Component<P, { messages: MessageData[] }
             const content = decodeHTML(textarea.innerHTML).trim();
             if (!content) return;
 
-            this.state.messages.push({
-                author: {
-                    id: '1',
-                    name: 'pee',
-                    avatarUrl: 'https://cdn.discordapp.com/emojis/596576798351949847.png',
-                },
-                id: generateSnowflake().toString(),
-                content,
-            });
-            this.forceUpdate();
+            // TODO: nonce
+
+            window.api!.rest!.request('POST', `/channels/${this.props.channelId}/messages`, { json: { content } });
             textarea.innerHTML = '';
         }
     }
@@ -73,7 +99,7 @@ export default class Chat extends React.Component<P, { messages: MessageData[] }
             <div id='chat'>
                 <div className='chat-items'>
                     <div className='chat-messages'>
-                        {processMessages(this.state.messages)}
+                        {processMessages(this.state._)}
                     </div>
                     <div className='chat-input-container'>
                         <div className='chat-input'>
