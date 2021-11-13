@@ -6,6 +6,10 @@ import { MessageData } from '../types';
 import defaultAvatar from '../assets/avatar_default.png';
 
 function processMessages(messages: MessageData[]): any[] {
+    messages = messages.sort((a: MessageData, b: MessageData): number => {
+        return BigInt(a.id_string) - BigInt(b.id_string) > 0 ? 1 : -1;
+    })
+
     if (!messages.length)
         return [];
 
@@ -20,7 +24,7 @@ function processMessages(messages: MessageData[]): any[] {
             current.push(element);
         else {
             processed.push(
-                <MessageGroup author={buffer} key={current[0].props.id_string + ":" + current.length}>{current}</MessageGroup>
+                <MessageGroup author={buffer} key={current[0].props.id + ":" + current.length}>{current}</MessageGroup>
             );
             current = [element];
         }
@@ -29,9 +33,9 @@ function processMessages(messages: MessageData[]): any[] {
   
     processed.push(
         // @ts-ignore
-        <MessageGroup author={buffer} key={current[0].props.id_string + ":" + current.length}>{current}</MessageGroup>
+        <MessageGroup author={buffer} key={current[0].props.id + ":" + current.length}>{current}</MessageGroup>
     );
-    return processed
+    return processed.reverse()
 }
 
 type P = { channelId: string };
@@ -60,7 +64,7 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
     async loadHistory(limit: number = 200) {
         const response = await window.api!.rest!.request('GET', `/channels/${this.props.channelId}/messages`, { params: { limit } });
         window.api!.loadedChannels.push(this.props.channelId);
-        this.messages.splice(0, 0, ...response.messages.reverse().map(
+        this.messages.splice(0, 0, ...response.messages.map(
             (msg: MessageData) => {
                 // TODO: remove this when author field becomes available
                 return {
