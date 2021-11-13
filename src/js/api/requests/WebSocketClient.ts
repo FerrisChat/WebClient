@@ -70,10 +70,14 @@ export default class WebSocketClient {
             this.url = await this.fetchWebSocketURL();
 
         this.mustKeepAlive = true;
+        this.clear();
 
         this.ws = new WebSocket(this.url);
         this.ws.onmessage = this.parseMessage.bind(this);
         this.ws.onopen = this.identify.bind(this);
+        this.ws.onerror = e => {
+            if (e.eventPhase > 1 && this.mustKeepAlive) this.connect();
+        };
         this.ws.onclose = () => {
             this.clear();
             if (this.mustKeepAlive) this.connect();
