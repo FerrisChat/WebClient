@@ -1,4 +1,5 @@
 import API from '../API';
+import defaultAvatar from '../../assets/avatar_default.png';
 
 export const WSEventHandlers: any = {
     IdentifyAccepted(ws: WebSocketClient, data: any) {
@@ -12,6 +13,15 @@ export const WSEventHandlers: any = {
     },
 
     MessageCreate({ api }: WebSocketClient, data: any) {
+        // TODO: Remove this when becomes available
+        data.message.author = {
+            id: data.message.author_id,
+            id_string: data.message.author_id_string,
+            name: "Unknown User",
+            avatar: defaultAvatar,
+            discriminator: 0,
+        }
+
         const channelId = data.message.channel_id_string;
         if (!api.messages.has(channelId))
             api.messages.set(channelId, []);
