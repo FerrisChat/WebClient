@@ -7,8 +7,10 @@ export interface MessageData {
     author_id_string: string;
     channel_id: number;
     channel_id_string: string;
-    edited_at: null;
-    embeds: null | any[];
+    edited_at?: null;
+    embeds?: null | any[];
+    nonce?: string | null;
+    __pending__?: boolean;
 }
 
 export interface UserData {

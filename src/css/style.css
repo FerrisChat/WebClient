@@ -210,6 +210,10 @@ a:hover {
   background-color: var(--dark);
 }
 
+#chat .chat-items .chat-messages .message-container .message-display .message.pending .message-content {
+  opacity: 0.5;
+}
+
 #chat .chat-items .chat-messages .message-container .message-display .message .message-content b {
   font-weight: 700;
   line-height: 70%;

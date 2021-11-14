@@ -17,7 +17,7 @@ interface MessageProps {
     pending?: boolean;
 }
 
-export default function Message({ id, content, pending }: MessageProps) {
+export default function Message({ id, content, pending = false }: MessageProps) {
     const className = pending ? 'message pending' : 'message';
     return (
         <div className={className} data-message-id={id}>

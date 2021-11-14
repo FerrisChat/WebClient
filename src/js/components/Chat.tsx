@@ -1,7 +1,7 @@
 import React from 'react';
 import Message from './Message';
 import MessageGroup from './MessageGroup';
-import { decodeHTML } from '../utils';
+import { decodeHTML, generateSnowflake } from '../utils';
 import { MessageData } from '../types';
 import defaultAvatar from '../assets/avatar_default.png';
 
@@ -21,7 +21,7 @@ function processMessages(messages: MessageData[]): any[] {
     let processed = [];
 
     for (const message of messages) {
-        element = <Message id={message.id_string} content={message.content} key={message.id_string} />;
+        element = <Message id={message.id_string} content={message.content} key={message.id_string} pending={message.__pending__} />;
 
         if (!buffer?.author_id_string || (
             message.author_id_string === buffer.author_id_string
@@ -49,6 +49,8 @@ type P = { channelId: string };
 export default class Chat extends React.Component<P, { _: MessageData[] }> {
     constructor(props: P) {
         super(props);
+        window.updateChat = this.forceUpdate.bind(this);
+
         this.messages.push = (...args): any => {
             Array.prototype.push.apply(this.messages, args);
             this.forceUpdate();
@@ -67,8 +69,9 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
         return window.api!.messages.get(this.props.channelId)!
     }
 
-    async loadHistory(limit: number = 2000) {  // TODO: Set limit to 200 when we get newest_first
-        const response = await window.api!.rest!.request('GET', `/channels/${this.props.channelId}/messages`, { params: { limit } });
+    async loadHistory(limit: number = 200) { 
+        const params = { limit, oldest_first: false };
+        const response = await window.api!.rest!.request('GET', `/channels/${this.props.channelId}/messages`, { params });
         window.api!.loadedChannels.push(this.props.channelId);
         this.messages.splice(0, 0, ...response.messages.map(
             (msg: MessageData) => {
@@ -97,9 +100,24 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
             const content = decodeHTML(textarea.innerHTML).trim();
             if (!content) return;
 
-            // TODO: nonce
+            const snowflake = generateSnowflake().toString();
+            const psuedoMessage: MessageData = {
+                id: 0,
+                id_string: snowflake,
+                author_id: 0,
+                author_id_string: window.api?.userId!,
+                author: window.api?.user!,
+                channel_id: 0,
+                channel_id_string: this.props.channelId,
+                content,
+                __pending__: true,
+            }
 
-            window.api!.rest!.request('POST', `/channels/${this.props.channelId}/messages`, { json: { content } });
+            this.messages.push(psuedoMessage);
+            window.api!.nonces.set(snowflake, psuedoMessage);
+            this.forceUpdate();
+
+            window.api!.rest!.request('POST', `/channels/${this.props.channelId}/messages`, { json: { content, nonce: snowflake } });
             textarea.innerHTML = '';
         }
     }

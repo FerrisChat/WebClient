@@ -6,6 +6,7 @@ declare global {
         waitForAPI(): Promise<API>;
         showLoading(): void;
         startApp(): void;
+        updateChat(): void;
         _apiPromise: Promise<API>;
         _resolver: Function;
     }

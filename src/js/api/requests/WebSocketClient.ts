@@ -8,25 +8,38 @@ export const WSEventHandlers: any = {
         
             const { api } = ws;
             api.user = data.user;
+            api.user!.avatar = defaultAvatar;  // TODO: remove when they are implemented
             api.updateGuilds().then(_ => api._readyPromiseResolver!());
         }
     },
 
-    MessageCreate({ api }: WebSocketClient, data: any) {
+    MessageCreate({ api }: WebSocketClient, { message }: any) {
         // TODO: Remove this when becomes available
-        data.message.author = {
-            id: data.message.author_id,
-            id_string: data.message.author_id_string,
-            name: `Unknown User (id: ${data.message.author_id_string})`,
+        message.author = {
+            id: message.author_id,
+            id_string: message.author_id_string,
+            name: `Unknown User (id: ${message.author_id_string})`,
             avatar: defaultAvatar,
             discriminator: 0,
         }
 
-        const channelId = data.message.channel_id_string;
+        let obj;
+        if (message.nonce && (obj = api.nonces.get(message.nonce))) {
+            for (let k of Object.keys(message)) {
+                // @ts-ignore
+                obj[k] = message[k];
+            }
+            obj.__pending__ = false;
+            api.nonces.delete(message.nonce);
+            window.updateChat();
+            return
+        }
+
+        const channelId = message.channel_id_string;
         if (!api.messages.has(channelId))
             api.messages.set(channelId, []);
 
-        api.messages.get(channelId)!.push(data.message);
+        api.messages.get(channelId)!.push(message);
         api.unreadChannels.push(channelId);
     }
 }

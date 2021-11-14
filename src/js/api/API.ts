@@ -9,6 +9,7 @@ export default class API {
     user?: UserData;
     guilds?: GuildData[];
     messages: Map<string, MessageData[]>;
+    nonces: Map<string, MessageData>;
     loadedChannels: string[];
     unreadChannels: string[];
 
@@ -26,6 +27,7 @@ export default class API {
 
         // preset
         this.messages = new Map<string, MessageData[]>();
+        this.nonces = new Map<string, MessageData>();
         this.loadedChannels = [];
         this.unreadChannels = [];
     }
