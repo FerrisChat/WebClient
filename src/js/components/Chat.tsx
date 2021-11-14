@@ -5,6 +5,9 @@ import { decodeHTML } from '../utils';
 import { MessageData } from '../types';
 import defaultAvatar from '../assets/avatar_default.png';
 
+// 16602069666338596454400000n is the snowflake diff for 15 minutes
+const MAX_SNOWFLAKE_DIFF = BigInt('16602069666338596454400000')  // bigint literals not allowed on some browsers
+
 function processMessages(messages: MessageData[]): any[] {
     messages = messages.sort((a: MessageData, b: MessageData): number => {
         return BigInt(a.id_string) - BigInt(b.id_string) > 0 ? 1 : -1;
@@ -19,21 +22,24 @@ function processMessages(messages: MessageData[]): any[] {
 
     for (const message of messages) {
         element = <Message id={message.id_string} content={message.content} key={message.id_string} />;
-    
-        if (!buffer?.id_string || message.author_id_string === buffer.id_string) 
+
+        if (!buffer?.author_id_string || (
+            message.author_id_string === buffer.author_id_string
+            && BigInt(message.id_string) - BigInt(buffer.id_string) < MAX_SNOWFLAKE_DIFF
+        ))
             current.push(element);
         else {
             processed.push(
-                <MessageGroup author={buffer} key={current[0].props.id + ":" + current.length}>{current}</MessageGroup>
+                <MessageGroup author={buffer.author} key={current[0].props.id + ":" + current.length}>{current}</MessageGroup>
             );
             current = [element];
         }
-        buffer = message.author
+        buffer = message
     }
   
     processed.push(
         // @ts-ignore
-        <MessageGroup author={buffer} key={current[0].props.id + ":" + current.length}>{current}</MessageGroup>
+        <MessageGroup author={buffer.author} key={current[0].props.id + ":" + current.length}>{current}</MessageGroup>
     );
     return processed.reverse()
 }
@@ -61,7 +67,7 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
         return window.api!.messages.get(this.props.channelId)!
     }
 
-    async loadHistory(limit: number = 200) {
+    async loadHistory(limit: number = 2000) {  // TODO: Set limit to 200 when we get newest_first
         const response = await window.api!.rest!.request('GET', `/channels/${this.props.channelId}/messages`, { params: { limit } });
         window.api!.loadedChannels.push(this.props.channelId);
         this.messages.splice(0, 0, ...response.messages.map(
@@ -72,7 +78,7 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
                     author: {
                         id: msg.author_id,
                         id_string: msg.author_id_string,
-                        name: "Unknown User",
+                        name: `Unknown User (id: ${msg.author_id_string})`,
                         avatar: defaultAvatar,
                         discriminator: 0,
                     }

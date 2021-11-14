@@ -8,8 +8,9 @@ export function parseSnowflake(snowflake: string | bigint): Date {
     return new Date(Number(snowflake >> BIGINT_64) + FERRIS_EPOCH_MS)
 }
 
-export function generateSnowflake(): bigint {
-    const now = Date.now();
+export function generateSnowflake(date?: number | Date): bigint {
+    let now = date || Date.now();
+    if (now instanceof Date) now = now.getTime();
     return BigInt(now - FERRIS_EPOCH_MS) << BIGINT_64;
 }
 

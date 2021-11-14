@@ -17,7 +17,7 @@ export const WSEventHandlers: any = {
         data.message.author = {
             id: data.message.author_id,
             id_string: data.message.author_id_string,
-            name: "Unknown User",
+            name: `Unknown User (id: ${data.message.author_id_string})`,
             avatar: defaultAvatar,
             discriminator: 0,
         }

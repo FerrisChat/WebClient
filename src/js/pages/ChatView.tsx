@@ -21,7 +21,7 @@ export default function GuildHomepage() {
 
     return (
         <GuildLayout>
-            <Chat channelId={channelId!} />
+            <Chat channelId={channelId!} key={channelId} />
         </GuildLayout>
     )
 }
