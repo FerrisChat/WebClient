@@ -29,7 +29,7 @@ export const WSEventHandlers: any = {
                 // @ts-ignore
                 obj[k] = message[k];
             }
-            obj.__pending__ = false;
+            obj.__status__ = 'sent';
             api.nonces.delete(message.nonce);
             window.updateChat();
             return

@@ -21,7 +21,7 @@ function processMessages(messages: MessageData[]): any[] {
     let processed = [];
 
     for (const message of messages) {
-        element = <Message id={message.id_string} content={message.content} key={message.id_string} pending={message.__pending__} />;
+        element = <Message id={message.id_string} content={message.content} key={message.id_string} status={message.__status__} />;
 
         if (!buffer?.author_id_string || (
             message.author_id_string === buffer.author_id_string
@@ -110,14 +110,18 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
                 channel_id: 0,
                 channel_id_string: this.props.channelId,
                 content,
-                __pending__: true,
+                __status__: 'pending',
             }
 
             this.messages.push(psuedoMessage);
             window.api!.nonces.set(snowflake, psuedoMessage);
             this.forceUpdate();
 
-            window.api!.rest!.request('POST', `/channels/${this.props.channelId}/messages`, { json: { content, nonce: snowflake } });
+            window.api!.rest!.request('POST', `/channels/${this.props.channelId}/messages`, { json: { content, nonce: snowflake } })
+                .catch(_ => {
+                    psuedoMessage.__status__ = 'error';
+                    window.updateChat()
+                });
             textarea.innerHTML = '';
         }
     }

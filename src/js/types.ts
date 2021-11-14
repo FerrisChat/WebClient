@@ -10,7 +10,7 @@ export interface MessageData {
     edited_at?: null;
     embeds?: null | any[];
     nonce?: string | null;
-    __pending__?: boolean;
+    __status__?: 'pending' | 'error' | 'sent';
 }
 
 export interface UserData {

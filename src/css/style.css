@@ -11,6 +11,7 @@
   --text: #ffffff;
   --link: #74dfff;
   --link-hover: #10c7ff;
+  --error: rgb(240, 107, 107);
   --scrollbar-front: rgba(255, 255, 255, 0.07);
   --scrollbar-front-hover: rgba(255, 255, 255, 0.15);
   --scrollbar-back: var(--dark);
@@ -212,6 +213,10 @@ a:hover {
 
 #chat .chat-items .chat-messages .message-container .message-display .message.pending .message-content {
   opacity: 0.5;
+}
+
+#chat .chat-items .chat-messages .message-container .message-display .message.error .message-content {
+  color: var(--error);
 }
 
 #chat .chat-items .chat-messages .message-container .message-display .message .message-content b {

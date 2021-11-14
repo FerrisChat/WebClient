@@ -98,7 +98,7 @@ export default class RESTClient {
 
         if (!response.ok) { 
             console.error(`Received ${response.status}: ${response.statusText} when requesting to ${route}`);
-            return
+            throw new Error()
         }
 
         const result = await response.text();

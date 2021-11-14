@@ -14,13 +14,12 @@ md.renderer.rules.strong_open = md.renderer.rules.strong_close = (tokens, index,
 interface MessageProps {
     id: string ;
     content: string;
-    pending?: boolean;
+    status?: string;
 }
 
-export default function Message({ id, content, pending = false }: MessageProps) {
-    const className = pending ? 'message pending' : 'message';
+export default function Message({ id, content, status }: MessageProps) {
     return (
-        <div className={className} data-message-id={id}>
+        <div className={`message ${status}`} data-message-id={id}>
             <span className='message-content' dangerouslySetInnerHTML={
                 { __html: DOMPurify.sanitize(md.renderInline(content)) }
             } />
