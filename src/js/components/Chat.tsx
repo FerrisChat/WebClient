@@ -77,16 +77,14 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
     }
 
     async loadHistory(limit: number = 200, offset: number = 0) { 
-        limit += offset;
-        const params = { limit, oldest_first: false };
+        const params = { limit, offset, oldest_first: false };
         const response = await window.api!.rest!.request('GET', `/channels/${this.props.channelId}/messages`, { params });
 
         window.api!.loadedChannels.push(this.props.channelId);
         if (response.messages.length < limit)
             this._keepLoading = false;
 
-        // TODO: implement offset as query parameter when it is added 
-        this.messages.splice(0, 0, ...response.messages.slice(offset).map(
+        this.messages.splice(0, 0, ...response.messages.map(
             (msg: MessageData) => {
                 // TODO: remove this when avatars are impl
                 msg.author.avatar = defaultAvatar;
