@@ -33,8 +33,10 @@ export interface ChannelData {
 
 export interface MemberData {
     user_id: number;
+    user_id_string: string;
     user?: UserData;
     guild_id: number;
+    guild_id_string: string;
     guild?: GuildData;
 }
 
@@ -46,4 +48,16 @@ export interface GuildData {
     name: string;
     channels: ChannelData[];
     members: MemberData[];
+}
+
+export interface IdentifyAcceptedEvent {
+    user: UserData,
+}
+
+export interface MessageCreateEvent {
+    message: MessageData,
+}
+
+export interface MemberCreateEvent {
+    member: MemberData,
 }

@@ -1,19 +1,25 @@
 import API from '../API';
 import defaultAvatar from '../../assets/avatar_default.png';
 
+import {
+    IdentifyAcceptedEvent,
+    MessageCreateEvent,
+    MemberCreateEvent,
+} from '../../types';
+
 export const WSEventHandlers: any = {
-    IdentifyAccepted(ws: WebSocketClient, data: any) {
+    IdentifyAccepted(ws: WebSocketClient, { user }: IdentifyAcceptedEvent) {
         if (!ws._identified) {
             ws._identified = true;
         
             const { api } = ws;
-            api.user = data.user;
+            api.user = user;
             api.user!.avatar = defaultAvatar;  // TODO: remove when they are implemented
             api.updateGuilds().then(_ => api._readyPromiseResolver!());
         }
     },
 
-    MessageCreate({ api }: WebSocketClient, { message }: any) {
+    MessageCreate({ api }: WebSocketClient, { message }: MessageCreateEvent) {
         // TODO: Remove this when becomes available
         message.author.avatar = defaultAvatar;  // TODO: remove when impl
 
@@ -35,6 +41,18 @@ export const WSEventHandlers: any = {
 
         api.messages.get(channelId)!.push(message);
         api.unreadChannels.push(channelId);
+    },
+
+    MemberCreate({ api }: WebSocketClient, { member }: MemberCreateEvent) {
+        const guild = api!.guilds?.find(guild => guild.id_string === member.guild_id_string);
+        if (!guild) return;
+
+        const channel = guild?.channels[0];
+        if (!channel) return;
+
+        // TODO: system messages
+        guild.members.push(member);
+        window.updateMembers();
     }
 }
 

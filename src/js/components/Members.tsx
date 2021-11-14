@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useForceUpdate } from '../hooks';
 
 import Member from './Member';
 
@@ -10,6 +11,8 @@ export default function Members() {
     if (!guild) {
         useNavigate()('/home')
     }
+
+    window.updateMembers = useForceUpdate();
 
     return (
         <div className="members-container">

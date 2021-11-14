@@ -7,6 +7,7 @@ declare global {
         showLoading(): void;
         startApp(): void;
         updateChat(): void;
+        updateMembers(): void;
         _apiPromise: Promise<API>;
         _resolver: Function;
     }
