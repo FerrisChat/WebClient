@@ -317,7 +317,7 @@ a:hover {
 
 .guild-select {
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: var(--darkest);
   padding: 8px 12px;
   display: flex;
@@ -421,4 +421,33 @@ a:hover {
 
 .channel-select .channel-select-channel:hover {
   background-color: var(--dark)
+}
+
+.members-container {
+  padding: 24px;
+  width: 25%;
+  height: 100vh;
+  min-width: 200px;
+  max-width: 250px;
+  overflow-y: auto;
+  white-space: pre-wrap; 
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.members-container .members .members-member {
+  display: flex;
+  align-items: center;
+  margin: 8px 2px;
+}
+
+.members-container .members .members-member .members-member-content {
+  margin-left: 8px;
+  font-size: 18px;
+}
+
+.members-container .members .members-member .members-member-avatar img {
+  width: 40px;
+  border-radius: 50%;
 }
