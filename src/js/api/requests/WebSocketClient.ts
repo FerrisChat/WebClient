@@ -15,13 +15,7 @@ export const WSEventHandlers: any = {
 
     MessageCreate({ api }: WebSocketClient, { message }: any) {
         // TODO: Remove this when becomes available
-        message.author = {
-            id: message.author_id,
-            id_string: message.author_id_string,
-            name: `Unknown User (id: ${message.author_id_string})`,
-            avatar: defaultAvatar,
-            discriminator: 0,
-        }
+        message.author.avatar = defaultAvatar;  // TODO: remove when impl
 
         let obj;
         if (message.nonce && (obj = api.nonces.get(message.nonce))) {

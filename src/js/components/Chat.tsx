@@ -47,6 +47,9 @@ function processMessages(messages: MessageData[]): any[] {
 type P = { channelId: string };
 
 export default class Chat extends React.Component<P, { _: MessageData[] }> {
+    _keepLoading: boolean;
+    _historyOffset: number;
+
     constructor(props: P) {
         super(props);
         window.updateChat = this.forceUpdate.bind(this);
@@ -57,9 +60,13 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
         }
         this.state = { _: this.messages };
         this.onKeyPress = this.onKeyPress.bind(this);
+        this.onScroll = this.onScroll.bind(this);
 
         if (!window.api!.loadedChannels.includes(this.props.channelId)) 
             this.loadHistory();
+
+        this._keepLoading = true;
+        this._historyOffset = 0;
     }
 
     get messages(): MessageData[] {
@@ -69,23 +76,21 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
         return window.api!.messages.get(this.props.channelId)!
     }
 
-    async loadHistory(limit: number = 200) { 
+    async loadHistory(limit: number = 200, offset: number = 0) { 
+        limit += offset;
         const params = { limit, oldest_first: false };
         const response = await window.api!.rest!.request('GET', `/channels/${this.props.channelId}/messages`, { params });
+
         window.api!.loadedChannels.push(this.props.channelId);
-        this.messages.splice(0, 0, ...response.messages.map(
+        if (response.messages.length < limit)
+            this._keepLoading = false;
+
+        // TODO: implement offset as query parameter when it is added 
+        this.messages.splice(0, 0, ...response.messages.slice(offset).map(
             (msg: MessageData) => {
-                // TODO: remove this when author field becomes available
-                return {
-                    ...msg,
-                    author: {
-                        id: msg.author_id,
-                        id_string: msg.author_id_string,
-                        name: `Unknown User (id: ${msg.author_id_string})`,
-                        avatar: defaultAvatar,
-                        discriminator: 0,
-                    }
-                }
+                // TODO: remove this when avatars are impl
+                msg.author.avatar = defaultAvatar;
+                return msg;
             }
         ));
         this.forceUpdate();
@@ -126,11 +131,26 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
         }
     }
 
+    onScroll(event: Event) {
+        if (!this._keepLoading) return;
+        // @ts-ignore
+        const scroll = event.currentTarget.scrollHeight + event.currentTarget.scrollTop - event.currentTarget.offsetHeight;
+
+        if (scroll < 10) {
+            this._historyOffset += 200;
+            this.loadHistory(200, this._historyOffset)
+        } 
+    }
+
     render() {
         return (
             <div id='chat'>
                 <div className='chat-items'>
-                    <div className='chat-messages'>
+                    <div
+                        className='chat-messages' 
+                        // @ts-ignore
+                        onScroll={this.onScroll}
+                    >
                         {processMessages(this.state._)}
                     </div>
                     <div className='chat-input-container'>
