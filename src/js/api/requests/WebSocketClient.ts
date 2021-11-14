@@ -115,7 +115,7 @@ export default class WebSocketClient {
     }
 
     sendHeartbeat() {
-        this.ws!.sendJSON({c: 'Ping'})
+        this.sendJSON({c: 'Ping'})
     }
 
     sendJSON(json: any) {
