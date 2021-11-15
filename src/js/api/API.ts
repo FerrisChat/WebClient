@@ -43,18 +43,6 @@ export default class API {
         return cls;
     }
 
-    async updateGuilds(): Promise<void> {
-        const response = await this.rest!.request('GET', `/users/${this.userId}`);
-        this.guilds = response.guilds;
-
-        // TODO: Remove this temporary, terrible workaround to an API limitation when it is fixed
-        for (let guild of this.guilds!) {
-            const response = await this.rest!.request('GET', `/guilds/${guild.id_string}`, { params: { members: true } });
-            guild.channels = response.channels;
-            guild.members = response.members;
-        }
-    }
-
     async wait(): Promise<API> {
         await this.rest?._authenticatePromise;
         await this.ongoingPromise;

@@ -324,6 +324,7 @@ a:hover {
   justify-content: center;
   scrollbar-width: none;
   scrollbar-color: transparent transparent;
+  height: 100vh;
 }
 
 .guild-select::-webkit-scrollbar {

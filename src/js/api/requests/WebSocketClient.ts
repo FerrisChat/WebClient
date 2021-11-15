@@ -15,7 +15,8 @@ export const WSEventHandlers: any = {
             const { api } = ws;
             api.user = user;
             api.user!.avatar = defaultAvatar;  // TODO: remove when they are implemented
-            api.updateGuilds().then(_ => api._readyPromiseResolver!());
+            api.guilds = user.guilds!;
+            api._readyPromiseResolver!();
         }
     },
 
