@@ -21,7 +21,7 @@ function processMessages(messages: MessageData[]): any[] {
     let processed = [];
 
     for (const message of messages) {
-        element = <Message id={message.id_string} content={message.content} key={message.id_string} status={message.__status__} />;
+        element = <Message id={message.id_string} message={message} key={message.id_string} />;
 
         if (!buffer?.author_id_string || (
             message.author_id_string === buffer.author_id_string

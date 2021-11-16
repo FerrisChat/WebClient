@@ -51,13 +51,17 @@ export interface GuildData {
 }
 
 export interface IdentifyAcceptedEvent {
-    user: UserData,
+    user: UserData;
 }
 
 export interface MessageCreateEvent {
-    message: MessageData,
+    message: MessageData;
+}
+
+export interface MessageDeleteEvent {
+    message: MessageData;
 }
 
 export interface MemberCreateEvent {
-    member: MemberData,
+    member: MemberData;
 }

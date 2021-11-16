@@ -4,6 +4,7 @@ import defaultAvatar from '../../assets/avatar_default.png';
 import {
     IdentifyAcceptedEvent,
     MessageCreateEvent,
+    MessageDeleteEvent,
     MemberCreateEvent,
 } from '../../types';
 
@@ -42,6 +43,13 @@ export const WSEventHandlers: any = {
 
         api.messages.get(channelId)!.push(message);
         api.unreadChannels.push(channelId);
+    },
+
+    MessageDelete({ api }: WebSocketClient, { message }: MessageDeleteEvent) {
+        const messages = api.messages.get(message.channel_id_string)!;
+        const index = messages.findIndex(msg => msg.id_string === message.id_string);
+        if (index) messages.splice(index, 1)
+        window.updateChat();
     },
 
     MemberCreate({ api }: WebSocketClient, { member }: MemberCreateEvent) {
