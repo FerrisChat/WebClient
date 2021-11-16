@@ -1,9 +1,9 @@
 import React from 'react';
-import API from '../api/API';
+import API from '../../api/API';
 import AuthForm from './AuthForm';
 import AuthFormField from './AuthFormField';
 
-export default class RegisterForm extends React.Component<{}, {}> {
+export default class LoginForm extends React.Component<{}, {}> {
     constructor(props: {}) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this)
@@ -11,9 +11,7 @@ export default class RegisterForm extends React.Component<{}, {}> {
 
     onSubmit() {
         window.startApp();
-        window.api = API.fromRegistration({
-            // @ts-ignore
-            username: document.getElementById('auth-form-field__username')!.value,
+        window.api = API.fromLogin({
             // @ts-ignore
             email: document.getElementById('auth-form-field__email')!.value,
             // @ts-ignore
@@ -23,12 +21,11 @@ export default class RegisterForm extends React.Component<{}, {}> {
 
     render() {
         return (
-            <AuthForm title='Register' button='Sign Up' onSubmit={this.onSubmit}>
-                <AuthFormField id='username' label='Username' maxLength='32' required />
+            <AuthForm title='Login to FerrisChat' button='Log In' onSubmit={this.onSubmit}>
                 <AuthFormField id='email' label='Email' required />
                 <AuthFormField id='password' label='Password' type='password' required />
                 <div className='auth-switch-type'>
-                    Already have an account? <a href='/login'>Login</a>
+                    Don't have an account? <a href='/register'>Register</a>
                 </div>
             </AuthForm>
         )

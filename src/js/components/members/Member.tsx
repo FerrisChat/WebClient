@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultAvatar from '../assets/avatar_default.png';
+import defaultAvatar from '../../assets/avatar_default.png';
 
 type P = { id: string, name: string, avatar?: string | null };
 

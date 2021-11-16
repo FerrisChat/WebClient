@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 
 import GuildLayout from './GuildLayout';
-import Chat from '../components/Chat';
+import Chat from '../components/messaging/Chat';
 
 export default function GuildHomepage() {
     const { guildId, channelId } = useParams();

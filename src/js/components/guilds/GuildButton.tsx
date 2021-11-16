@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import defaultIcon from '../assets/server_default.jpg';
+import defaultIcon from '../../assets/server_default.jpg';
 
 type P = { id: string, name: string, iconUrl?: string };
 

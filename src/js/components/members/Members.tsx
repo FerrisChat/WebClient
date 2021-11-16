@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useForceUpdate } from '../hooks';
+import { useForceUpdate } from '../../hooks';
 
 import Member from './Member';
 

@@ -1,9 +1,12 @@
 import React from 'react';
+
 import Message from './Message';
 import MessageGroup from './MessageGroup';
-import { decodeHTML, generateSnowflake } from '../utils';
-import { MessageData } from '../types';
-import defaultAvatar from '../assets/avatar_default.png';
+
+import { decodeHTML, generateSnowflake } from '../../utils';
+import { MessageData } from '../../types';
+
+import defaultAvatar from '../../assets/avatar_default.png';
 
 // 16602069666338596454400000n is the snowflake diff for 15 minutes
 const MAX_SNOWFLAKE_DIFF = BigInt('16602069666338596454400000')  // bigint literals not allowed on some browsers

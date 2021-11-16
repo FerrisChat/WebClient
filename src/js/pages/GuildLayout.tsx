@@ -1,7 +1,7 @@
 import React from 'react';
-import GuildSelect from '../components/GuildSelect';
-import ChannelSelect from '../components/ChannelSelect';
-import Members from '../components/Members';
+import GuildSelect from '../components/guilds/GuildSelect';
+import ChannelSelect from '../components/channels/ChannelSelect';
+import Members from '../components/members/Members';
 
 export default function GuildLayout({ children }: { children: any | any[] }) {
     return (

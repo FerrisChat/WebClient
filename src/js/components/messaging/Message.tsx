@@ -2,8 +2,8 @@ import React from 'react';
 import mdit from 'markdown-it';
 import DOMPurify from 'dompurify';
 
-import MessageContextMenu from './context-menus/MessageContextMenu';
-import { MessageData } from '../types'; 
+import MessageContextMenu from '../context-menus/MessageContextMenu';
+import { MessageData } from '../../types'; 
 
 const md = mdit({ linkify: true, breaks: true });
 md.renderer.rules.strong_open = md.renderer.rules.strong_close = (tokens, index, options, _, self) => {

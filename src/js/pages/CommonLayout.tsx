@@ -1,5 +1,5 @@
 import React from 'react';
-import GuildSelect from '../components/GuildSelect';
+import GuildSelect from '../components/guilds/GuildSelect';
 
 export default function CommonLayout({ children }: { children: any | any[] }) {
     return (

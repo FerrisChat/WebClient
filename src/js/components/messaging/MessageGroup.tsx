@@ -1,6 +1,6 @@
 import React from 'react';
-import { UserData } from '../types';
-import { parseSnowflake, humanizeDate } from '../utils';
+import { UserData } from '../../types';
+import { parseSnowflake, humanizeDate } from '../../utils';
 
 type MessageElement = { props: { id: string, name: string } };
 
