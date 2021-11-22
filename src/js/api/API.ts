@@ -43,6 +43,10 @@ export default class API {
         return cls;
     }
 
+    static fromToken(token: string): API {
+        return new this({ rest: new RESTClient({ token }) });
+    }
+
     async wait(): Promise<API> {
         await this.rest?._authenticatePromise;
         await this.ongoingPromise;

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { UserData } from '../../types';
 
 export type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE' | 'HEAD' | 'OPTIONS';
@@ -19,7 +20,11 @@ export default class RESTClient {
         if (token)
             this.token = token;
         else if (email && password)
-            this._authenticatePromise = this.authenticate(email, password).then(token => this.token = token);
+            this._authenticatePromise = this.authenticate(email, password).then(token => {
+                this.token = token;
+                Cookies.set('token', token);
+                return token
+            });
     }
 
     async authenticate(email: string, password: string): Promise<string> {

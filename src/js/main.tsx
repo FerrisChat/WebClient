@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
@@ -7,6 +8,7 @@ import {
     Navigate,
 } from 'react-router-dom';
 
+import API from './api/API';
 import LoginForm from './components/auth/LoginForm';
 import RegisterForm from './components/auth/RegisterForm';
 
@@ -46,15 +48,19 @@ const MESSAGE =
 
 console.log('%c' + MESSAGE, 'font-size:23px;');
 
-const defaultElement = window.api?.token ? <App api={window.api!} /> : <Navigate to={'/login'} />;
-
-ReactDOM.render(
-    <BrowserRouter>
-        <Routes>
-            <Route path='/login' element={<LoginForm />} />
-            <Route path='/register' element={<RegisterForm />} />
-            <Route path='*' element={defaultElement} />
-        </Routes>
-    </BrowserRouter>,
-    document.getElementById('app'),
-);
+const token = Cookies.get('token');
+if (token) {
+    window.startApp();
+    window.api = API.fromToken(token);
+} else {
+    ReactDOM.render(
+        <BrowserRouter>
+            <Routes>
+                <Route path='/login' element={<LoginForm />} />
+                <Route path='/register' element={<RegisterForm />} />
+                <Route path='*' element={<Navigate to={'/login'} />} />
+            </Routes>
+        </BrowserRouter>,
+        document.getElementById('app'),
+    );
+}
