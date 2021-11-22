@@ -102,6 +102,12 @@ export default class RESTClient {
             body,
         });
 
+        if (response.status == 401) {
+            console.error('Token invalided, going back to login...');
+            Cookies.remove('token');
+            window.location.pathname = '/login';
+        }
+
         if (!response.ok) { 
             console.error(`Received ${response.status}: ${response.statusText} when requesting to ${route}`);
             throw new Error()

@@ -7,9 +7,12 @@ import {
 } from 'react-router-dom';
 
 import API from './api/API';
+
 import Home from './pages/Home';
 import ChatView from './pages/ChatView';
 import GuildHomepage from './pages/GuildHomepage';
+
+import AccountSettings from './pages/settings/Account';
 
 type P = { api: API }
 
@@ -35,6 +38,8 @@ export default class App extends React.Component<P, { contextMenu?: Element }> {
                         <Route path='/home' element={<Home />} />
                         <Route path='/channels/:guildId/:channelId' element={<ChatView />} />
                         <Route path='/channels/:guildId' element={<GuildHomepage />} />
+                        <Route path='/settings/account' element={<AccountSettings />} />
+                        <Route path='/settings/*' element={<Navigate to='/settings/account' />} />
                         <Route path='*' element={<Navigate to='/home' />} />
                     </Routes>
                 </BrowserRouter>

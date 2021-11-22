@@ -6,15 +6,24 @@
   --darkest: #23231a;
   --darker: #292e30;
   --dark: #35393b;
+
   --primary: #629bb8;
   --secondary: #4597a3;
+
   --text: #ffffff;
   --link: #74dfff;
   --link-hover: #10c7ff;
   --error: rgb(240, 107, 107);
+
   --scrollbar-front: rgba(255, 255, 255, 0.07);
   --scrollbar-front-hover: rgba(255, 255, 255, 0.15);
   --scrollbar-back: var(--dark);
+
+  /* Buttons */
+  --button-primary: #ffd152;
+  --button-secondary: rgb(132, 141, 146);
+  --button-success: #59e487;
+  --button-danger: rgb(240, 78, 78);
 
   /* Chat */
   --chat-font-size: 18px;
@@ -485,5 +494,113 @@ a:hover {
 .context-menu .context-menu-items .context-menu-button img {
   width: 24px;
   padding: 2px;
+  filter: brightness(0) invert(1);
+}
+
+.settings-select {
+  width: 25%;
+  max-width: 300px;
+  padding: 16px 16px 16px 4px;
+}
+
+.settings-select .settings-button {
+  margin: 4px 16px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 20px;
+  border-radius: 6px;
+  padding: 9px 16px;
+  display: block;
+  transition: background-color 0.4s ease;
+}
+
+.settings-select .settings-back-button {
+  color: var(--error);
+}
+
+.settings-select .settings-button.active {
+  background-color: var(--darker);
+}
+
+.channel-select .channel-select-channel:hover {
+  background-color: var(--dark)
+}
+
+.account-settings-buttons,
+.account-settings-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.account-settings-tag {
+  align-items: auto !important;
+}
+
+.account-settings-tag .username {
+  font-weight: 600;
+  font-size: 42px;
+}
+
+.account-settings-tag .discriminator {
+  font-size: 32px;
+  margin-left: 3px;
+  align-self: flex-end;
+  opacity: 0.7;
+}
+
+.account-settings-buttons button.specialized {
+  margin: 6px;
+}
+
+button.specialized {
+  border: none;
+  padding: 16px 24px 16px;
+  font-size: 18px;
+  color: var(--text);
+  transition: opacity 0.5s ease;
+  border-radius: 8px;
+}
+
+button.specialized:hover {
+  opacity: 0.75;
+}
+
+button.specialized.primary {
+  background-color: var(--button-primary)
+}
+
+button.specialized.secondary {
+  background-color: var(--button-secondary)
+}
+
+button.specialized.success {
+  background-color: var(--button-success)
+}
+
+button.specialized.danger {
+  background-color: var(--button-danger)
+}
+
+.settings-link {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 8px;
+  display: flex;
+}
+
+@keyframes gear-spin {
+  from { transform: rotate(0deg) }
+  to { transform: rotate(360deg) }
+}
+
+.settings-link:hover {
+  animation: gear-spin 3s infinite;
+}
+
+.settings-link img {
+  width: 32px;
   filter: brightness(0) invert(1);
 }
