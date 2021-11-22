@@ -522,7 +522,7 @@ a:hover {
   background-color: var(--darker);
 }
 
-.channel-select .channel-select-channel:hover {
+.settings-select .settings-select-channel:hover {
   background-color: var(--dark)
 }
 
