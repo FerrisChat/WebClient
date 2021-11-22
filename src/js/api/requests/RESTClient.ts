@@ -41,7 +41,8 @@ export default class RESTClient {
 
         if (response.status > 299) {
             console.error(`Could not log in with given credentials. ${response.status} ${response.statusText}`);
-            throw new Error()
+            Cookies.remove('token');
+            window.location.pathname = '/login';
         }
 
         const json = await response.json();
