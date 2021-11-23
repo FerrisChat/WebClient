@@ -433,6 +433,19 @@ a:hover {
   background-color: var(--dark)
 }
 
+.channel-select .channel-select-name {
+  text-align: center;
+  opacity: 0.6;
+  padding: 4px;
+}
+
+.channel-select .guild-name {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 16px;
+}
+
 .members-container {
   padding: 24px;
   width: 25%;
@@ -450,6 +463,12 @@ a:hover {
   display: flex;
   align-items: center;
   margin: 8px 2px;
+}
+
+.members-container .member-heading-name {
+  text-align: center;
+  padding: 4px;
+  opacity: 0.6;
 }
 
 .members-container .members .members-member .members-member-content {

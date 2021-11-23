@@ -16,6 +16,10 @@ export default function Members() {
 
     return (
         <div className="members-container">
+            <div className='member-heading-name'>
+                Members ({guild!.members ? guild!.members.length : NaN})
+                <hr />
+            </div>
             <div className="members">
                 {(guild!.members || []).map(({ user }) => 
                     <Member id={user!.id_string} name={user!.name} avatar={user!.avatar} key={user!.id_string} />
