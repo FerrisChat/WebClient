@@ -3,7 +3,7 @@ import React from 'react';
 import Message from './Message';
 import MessageGroup from './MessageGroup';
 
-import { decodeHTML, generateSnowflake } from '../../utils';
+import { generateSnowflake } from '../../utils';
 import { MessageData } from '../../types';
 
 import defaultAvatar from '../../assets/avatar_default.png';
@@ -103,7 +103,7 @@ export default class Chat extends React.Component<P, { _: MessageData[] }> {
             event.preventDefault();
 
             let textarea = document.getElementById('chat-input-textarea')!;
-            const content = decodeHTML(textarea.innerHTML.trim()).trim();
+            const content = textarea.innerText.trim();
             if (!content) return;
 
             const snowflake = generateSnowflake().toString();
