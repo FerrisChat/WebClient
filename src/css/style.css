@@ -166,6 +166,7 @@ a:hover {
   width: 100%;
   height: 100vh;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 #chat {
@@ -657,4 +658,58 @@ button.specialized.danger {
   opacity: 0.7;
   margin-top: 4px;
   font-size: 0.9em;
+}
+
+.themes .custom-theme-pickers {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 160px;
+}
+
+.themes .custom-theme-pickers .custom-theme-picker {
+  display: flex;
+  align-items: center;
+  background-color: var(--darkest);
+  padding: 16px;
+  border-radius: 12px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  width: 300px;
+}
+
+.themes .custom-theme-pickers .custom-theme-picker > input {
+  position: absolute;
+  opacity: 0;
+}
+
+.themes .custom-theme-pickers .custom-theme-picker .custom-theme-picker-color {
+  min-width: 48px;
+  min-height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: var(--dark);
+}
+
+.themes .custom-theme-pickers .custom-theme-picker .custom-theme-picker-content {
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.themes .custom-theme-pickers .custom-theme-picker .custom-theme-picker-content div {
+  padding: 6px;
+}
+
+.themes .custom-theme-pickers .custom-theme-picker .custom-theme-picker-content input {
+  display: block;
+  background-color: var(--darker);
+  border: none;
+  color: var(--text);
+  padding: 4px;
+  margin-left: 6px;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 140px;
 }

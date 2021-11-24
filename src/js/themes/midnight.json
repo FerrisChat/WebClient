@@ -14,7 +14,7 @@
   
     "scrollbar-front": "rgba(255, 255, 255, 0.07)",
     "scrollbar-front-hover": "rgba(255, 255, 255, 0.15)",
-    "scrollbar-back": "var(--dark)",
+    "scrollbar-back": "#313131",
   
     "button-primary": "#ffd152",
     "button-secondary": "rgb(132, 141, 146)",

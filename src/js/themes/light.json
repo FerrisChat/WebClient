@@ -1,20 +1,20 @@
 {
     "pitch": "#d1d1d1",
-    "darkest": "#ccc",
-    "darker": "#eee",
-    "dark": "#fff",
+    "darkest": "#cccccc",
+    "darker": "#eeeeee",
+    "dark": "#ffffff",
 
     "primary": "#79bee0",
     "secondary": "#53afbd",
   
-    "text": "#000",
+    "text": "#000000",
     "link": "#36c9f7",
     "link-hover": "#13aad8",
     "error": "rgb(223, 67, 67)",
   
     "scrollbar-front": "rgba(0, 0, 0, 0.07)",
     "scrollbar-front-hover": "rgba(0, 0, 0, 0.15)",
-    "scrollbar-back": "var(--dark)",
+    "scrollbar-back": "#ffffff",
   
     "button-primary": "#ffd152",
     "button-secondary": "rgb(132, 141, 146)",
