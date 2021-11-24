@@ -1,4 +1,5 @@
 import API from './api/API';
+import ThemeManager from './ThemeManager';
 
 type P = any;
 type S = any;
@@ -6,6 +7,7 @@ type S = any;
 declare global {
     interface Window {
         api?: API;
+        themeManager: ThemeManager;
         waitForAPI(): Promise<API>;
         showLoading(): void;
         startApp(): void;

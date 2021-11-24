@@ -13,7 +13,10 @@ import LoginForm from './components/auth/LoginForm';
 import RegisterForm from './components/auth/RegisterForm';
 
 import App from './App';
+import ThemeManager from './ThemeManager';
 import ferrisImage from './assets/ferris.png';
+
+window.themeManager = new ThemeManager();
 
 window._apiPromise = new Promise(r => window._resolver = r);
 window.waitForAPI = async () => {

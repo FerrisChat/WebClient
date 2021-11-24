@@ -1,0 +1,26 @@
+{
+    "pitch": "#0a0b0b",
+    "darkest": "#23231a",
+    "darker": "#292e30",
+    "dark": "#35393b",
+
+    "primary": "#629bb8",
+    "secondary": "4597a3",
+  
+    "text": "#ffffff",
+    "link": "#74dfff",
+    "link-hover": "#10c7ff",
+    "error": "rgb(240, 107, 107)",
+  
+    "scrollbar-front": "rgba(255, 255, 255, 0.07)",
+    "scrollbar-front-hover": "rgba(255, 255, 255, 0.15)",
+    "scrollbar-back": "var(--dark)",
+  
+    "button-primary": "#ffd152",
+    "button-secondary": "rgb(132, 141, 146)",
+    "button-success": "#59e487",
+    "button-danger": "rgb(240, 78, 78)",
+    
+    "font-primary": "'Source Sans Pro', sans-serif",
+    "font-monospace": "'Fira Code', monospace"
+}

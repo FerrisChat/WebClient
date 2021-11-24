@@ -13,6 +13,7 @@ import ChatView from './pages/ChatView';
 import GuildHomepage from './pages/GuildHomepage';
 
 import AccountSettings from './pages/settings/Account';
+import ThemeSettings from './pages/settings/Theme';
 
 type P = { api: API }
 
@@ -39,6 +40,7 @@ export default class App extends React.Component<P, { contextMenu?: Element }> {
                         <Route path='/channels/:guildId/:channelId' element={<ChatView />} />
                         <Route path='/channels/:guildId' element={<GuildHomepage />} />
                         <Route path='/settings/account' element={<AccountSettings />} />
+                        <Route path='/settings/theme' element={<ThemeSettings />} />
                         <Route path='/settings/*' element={<Navigate to='/settings/account' />} />
                         <Route path='*' element={<Navigate to='/home' />} />
                     </Routes>

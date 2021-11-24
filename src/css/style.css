@@ -623,3 +623,38 @@ button.specialized.danger {
   width: 32px;
   filter: brightness(0) invert(1);
 }
+
+.settings-select .section-name {
+  text-align: center;
+  opacity: 0.4;
+  padding-top: 24px;
+  padding-bottom: 2px;
+}
+
+.themes {
+  margin: 48px;
+}
+
+.themes .preset-themes .preset-theme {
+  background-color: var(--darkest);
+  border-radius: 12px;
+  padding: 18px;
+  margin: 8px auto;
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+}
+
+.themes .preset-themes .preset-theme:hover {
+  background-color: var(--dark);
+}
+
+.themes .preset-themes .preset-theme .preset-theme-label {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.themes .preset-themes .preset-theme .preset-theme-description {
+  opacity: 0.7;
+  margin-top: 4px;
+  font-size: 0.9em;
+}
