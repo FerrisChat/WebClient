@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 import {
     BrowserRouter,
     Routes,
@@ -15,6 +16,8 @@ import RegisterForm from './components/auth/RegisterForm';
 import App from './App';
 import ThemeManager from './ThemeManager';
 import ferrisImage from './assets/ferris.png';
+
+Modal.setAppElement('#app');
 
 window.themeManager = new ThemeManager();
 

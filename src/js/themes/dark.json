@@ -16,7 +16,7 @@
     "scrollbar-front-hover": "rgba(255, 255, 255, 0.15)",
     "scrollbar-back": "#35393b",
   
-    "button-primary": "#ffd152",
+    "button-primary": "#629bb8",
     "button-secondary": "rgb(132, 141, 146)",
     "button-success": "#59e487",
     "button-danger": "rgb(240, 78, 78)",

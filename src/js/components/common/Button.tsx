@@ -15,10 +15,9 @@ export interface ButtonProps {
     onClick?: MouseEventHandler<Element>;
 }
 
-export default function Button({ style, label, link, onClick }: ButtonProps) {
-    const navigate = useNavigate();
+export default function Button({ style, label, link, onClick, ...props }: ButtonProps) {
     return (
-        <button className={`specialized ${style}`} onClick={onClick || (link ? () => navigate(link) : undefined)}>
+        <button className={`specialized ${style}`} onClick={onClick || (link ? () => useNavigate()(link) : undefined)} {...props}>
             {label}
         </button>
     )

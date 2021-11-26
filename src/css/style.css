@@ -350,6 +350,7 @@ a:hover {
 
 .guild-select .guild-select-guilds .guild-select-guild {
   padding: 4px 8px;
+  cursor: pointer;
 }
 
 .guild-select .guild-select-guilds .guild-select-guild:before {
@@ -581,6 +582,7 @@ button.specialized {
   color: var(--text);
   transition: opacity 0.5s ease;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 button.specialized:hover {
@@ -712,4 +714,75 @@ button.specialized.danger {
   border-radius: 4px;
   font-size: 16px;
   width: 140px;
+}
+
+.ReactModal__Content {
+  background-color: var(--darker);
+  position: absolute;
+  padding: 32px;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  top: 50%;
+  left: 50%;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(3px);
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.new-guild-modal h1 {
+  text-align: center;
+  margin-top: 0;
+  padding: 16px;
+}
+
+.new-guild-modal {
+  width: 400px;
+}
+
+.new-guild-modal .new-guild-modal-buttons,
+.new-guild-modal .join-guild-input,
+.new-guild-modal .join-guild-button-container,
+.new-guild-modal .create-guild-input,
+.new-guild-modal .create-guild-button-container {
+  display: grid;
+}
+
+.new-guild-modal .new-guild-modal-buttons button {
+  margin: 8px;
+}
+
+.new-guild-modal .join-guild-button-container button,
+.new-guild-modal .create-guild-button-container button {
+  margin-top: 16px;
+}
+
+.new-guild-modal .join-guild-input label,
+.new-guild-modal .create-guild-input label {
+  margin-bottom: 6px;
+  font-size: 18px;
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+.new-guild-modal .join-guild-input input,
+.new-guild-modal .create-guild-input input {
+  margin: 6px 0 12px 0;
+  background-color: var(--darkest);
+  border: none;
+  padding: 6px;
+  font-size: 18px;
+  border-radius: 6px;
+  color: var(--text);
 }
