@@ -12,17 +12,19 @@ export default function ChannelSelect() {
     }
 
     return (
-        <div className='channel-select'>
-            <div className='guild-name'>
-                {guild!.name}
-            </div>
-            <div className='channel-select-name'>
-                Channels ({guild!.channels ? guild!.channels.length : NaN})
-                <hr />
-            </div>
-            <div className='channel-select-channels'>
-                <ChannelHomepageButton />
-                {guild!.channels?.map(channel => <ChannelButton id={channel.id_string} key={channel.id_string} name={channel.name} />)}
+        <div className='channel-select-container'>
+            <div className='channel-select'>
+                <div className='guild-name'>
+                    {guild!.name}
+                </div>
+                <div className='channel-select-name'>
+                    Channels ({guild!.channels ? guild!.channels.length : NaN})
+                    <hr />
+                </div>
+                <div className='channel-select-channels'>
+                    <ChannelHomepageButton />
+                    {guild!.channels?.map(channel => <ChannelButton id={channel.id_string} key={channel.id_string} name={channel.name} />)}
+                </div>
             </div>
         </div>
     )

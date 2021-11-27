@@ -410,9 +410,14 @@ a:hover {
   font-size: 20px;
 }
 
-.channel-select {
+.channel-select-container {
   width: 25%;
   max-width: 250px;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.channel-select {
   padding: 16px 16px 16px 4px;
 }
 
