@@ -583,6 +583,7 @@ button.specialized {
   transition: opacity 0.5s ease;
   border-radius: 8px;
   cursor: pointer;
+  min-width: 120px;
 }
 
 button.specialized:hover {
@@ -680,8 +681,9 @@ button.specialized.danger {
 }
 
 .themes .custom-theme-pickers .custom-theme-picker > input {
-  position: absolute;
   opacity: 0;
+  width: 0px;
+  height: 0px;
 }
 
 .themes .custom-theme-pickers .custom-theme-picker .custom-theme-picker-color {

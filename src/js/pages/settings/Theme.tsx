@@ -1,4 +1,8 @@
-import React, { EventHandler, FormEvent, FormEventHandler } from 'react';
+import Cookies from 'js-cookie';
+import React from 'react';
+import type { FormEvent } from 'react';
+
+import Button, { ButtonStyle } from '../../components/common/Button';
 import SettingsLayout from "./SettingsLayout";
 
 function PresetTheme({ label, name, description }: { label: string, name: string, description: string }) {
@@ -21,8 +25,8 @@ function CustomThemePicker({ label, name }: { label: string, name: string }) {
     return (
         <div className='custom-theme-picker'>
             <input type='color' id={`custom-theme-picker__${name}`} name={name} value={current} onInput={onInput} />
-            <div className='custom-theme-picker-color' id={`custom-theme-picker-color__${name}`} onClick={
-                () => document.getElementById(`custom-theme-picker__${name}`)?.click()
+            <div className='custom-theme-picker-color' id={`custom-theme-picker-color__${name}`} onClick={() =>
+                document.getElementById(`custom-theme-picker__${name}`)?.click()
             } style={{backgroundColor: current}} />
             <div className='custom-theme-picker-content'>
                 <div>{label}</div>
@@ -64,6 +68,9 @@ export default function Theme() {
                         <CustomThemePicker label="Button (Success)" name="button-success" />
                         <CustomThemePicker label="Button (Danger)" name="button-danger" />
                     </div>
+                    <Button style={ButtonStyle.success} label='Save' onClick={() => {
+                        Cookies.set('theme', JSON.stringify(window.themeManager.theme))
+                    }} />
                 </div>
             </div>
         </SettingsLayout>

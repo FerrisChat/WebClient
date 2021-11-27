@@ -21,7 +21,12 @@ export default class ThemeManager {
     }
 
     resolveTheme() {
-        this.theme = Object.assign({}, THEME_MAPPING[this.themeName = Cookies.get('theme') || 'dark']);
+        const stored = Cookies.get('theme') || 'preset:dark';
+        if (stored.startsWith('preset:'))
+            this.theme = Object.assign({}, THEME_MAPPING[this.themeName = stored.slice(7).toLowerCase()]);
+        else
+            this.theme = JSON.parse(stored);
+        
         this.updateTheme();
     }
 
@@ -55,7 +60,7 @@ export default class ThemeManager {
         const theme = Object.assign({}, THEME_MAPPING[name = name.toLowerCase()]);
         if (!theme) return;
 
-        Cookies.set('theme', this.themeName = name);
+        Cookies.set('theme', 'preset:' + (this.themeName = name));
         this.theme = theme;
         this.updateTheme();
     }
