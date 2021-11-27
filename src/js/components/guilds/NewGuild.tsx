@@ -45,7 +45,7 @@ export default function NewGuild() {
                                                 element.disabled = true;
                                                 element.style.border = 'none';
 
-                                                const code = /[a-zA-Z0-9]{3,10}/.exec(link)!.at(-1);
+                                                const code = Array.from(link.matchAll(/[a-zA-Z0-9]{3,10}/g), m => m[0]).at(-1);
                                                 window.api!.rest!.request('POST', `/invites/${code}`, { json: {} }).then(() => {
                                                     window.location.pathname = '/home';  // TODO: redirect to guild /channels/:id
                                                 })
