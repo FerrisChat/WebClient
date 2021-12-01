@@ -1,11 +1,21 @@
 import React from 'react';
-import mdit from 'markdown-it';
+
 import DOMPurify from 'dompurify';
+import hljs from 'highlight.js';
+import mdit from 'markdown-it';
+import mditHighlightJS from 'markdown-it-highlightjs';
 
 import MessageContextMenu from '../context-menus/MessageContextMenu';
 import { MessageData } from '../../types'; 
 
-const md = mdit({ linkify: true, breaks: true });
+const md = mdit({ linkify: true, breaks: true })
+    .use(mditHighlightJS, {
+        auto: true,
+        code: true,
+        inline: true,
+        hljs,
+    });
+
 md.renderer.rules.strong_open = md.renderer.rules.strong_close = (tokens, index, options, _, self) => {
     let token = tokens[index];
     if (token.markup === '__') {
@@ -35,7 +45,7 @@ export default function Message({ id, message }: MessageProps) {
             }}
         >
             <span className='message-content' dangerouslySetInnerHTML={
-                { __html: DOMPurify.sanitize(md.renderInline(message.content)) }
+                { __html: DOMPurify.sanitize(md.render(message.content)) }
             } />
         </div>
     )

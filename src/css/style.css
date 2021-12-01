@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('./code.css');
 
 :root {
   /* Theme */
@@ -30,7 +32,7 @@
   --chat-message-padding: 8px;
   
   /* Fonts */
-  --font-primary: 'Source Sans Pro', sans-serif;
+  --font-primary: 'Inter', sans-serif;
   --font-monospace: 'Fira Code', monospace;
 }
 
@@ -215,6 +217,20 @@ a:hover {
   overflow-wrap: break-word;
   word-wrap: break-word;
   box-sizing: border-box;
+}
+
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content p {
+  margin: 0;
+  padding: 0;
+}
+
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h1,
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h2,
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h3,
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h4,
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h5,
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h6 {
+  margin: 4px 0;
 }
 
 #chat .chat-items .chat-messages  .message-container .message-display .message:hover {
