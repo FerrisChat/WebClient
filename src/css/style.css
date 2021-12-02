@@ -178,7 +178,7 @@ a:hover {
 #chat .chat-items .chat-messages {
   padding: 20px;
   flex-grow: 1;
-  height: calc(100vh - 62px);
+  height: calc(100vh - 60px);
   overflow: hidden auto;
   word-break: break-word;
   display: flex;
