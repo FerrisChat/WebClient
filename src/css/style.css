@@ -233,6 +233,30 @@ a:hover {
   margin: 4px 0;
 }
 
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h1 {
+  font-size: 1.7em;
+}
+
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h2 {
+  font-size: 1.5em;
+}
+
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h3 {
+  font-size: 1.35em;
+}
+
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h4 {
+  font-size: 1.2em;
+}
+
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h5 {
+  font-size: 1.06em;
+}
+
+#chat .chat-items .chat-messages .message-container .message-display .message .message-content h6 {
+  font-size: 0.92em;
+}
+
 #chat .chat-items .chat-messages  .message-container .message-display .message:hover {
   background-color: var(--dark);
 }
@@ -269,6 +293,7 @@ a:hover {
   padding: 20px;
 }
 
+#chat .chat-items .chat-input-container .chat-input,
 #chat .chat-items .chat-input-container .chat-input * {
   font-size: 1.05em;
 }

@@ -1,28 +1,9 @@
 import React from 'react';
-
 import DOMPurify from 'dompurify';
-import hljs from 'highlight.js';
-import mdit from 'markdown-it';
-import mditHighlightJS from 'markdown-it-highlightjs';
 
+import md from '../../markdown';
 import MessageContextMenu from '../context-menus/MessageContextMenu';
 import { MessageData } from '../../types'; 
-
-const md = mdit({ linkify: true, breaks: true })
-    .use(mditHighlightJS, {
-        auto: true,
-        code: true,
-        inline: true,
-        hljs,
-    });
-
-md.renderer.rules.strong_open = md.renderer.rules.strong_close = (tokens, index, options, _, self) => {
-    let token = tokens[index];
-    if (token.markup === '__') {
-        token.tag = 'u';
-    }
-    return self.renderToken(tokens, index, options);
-}
 
 interface MessageProps {
     id: string;

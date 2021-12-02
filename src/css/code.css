@@ -1,7 +1,7 @@
 pre code.hljs {
     display: block;
     overflow: auto auto;
-    padding: 1em;
+    padding: 0.9em;
     width: 90%;
     border: 4px solid var(--darkest);
 }

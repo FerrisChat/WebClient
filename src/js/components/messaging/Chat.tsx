@@ -3,6 +3,7 @@ import React from 'react'
 import Message from './Message';
 import MessageGroup from './MessageGroup';
 
+import { previewMD } from '../../markdown';
 import { generateSnowflake } from '../../utils';
 import { MessageData } from '../../types';
 
