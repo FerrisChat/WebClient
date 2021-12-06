@@ -29,14 +29,13 @@ export default class RESTClient {
 
     async authenticate(email: string, password: string): Promise<string> {
         console.info('Authenticating with credentials...');
-
+        let payload = {email: email, password: password}
         const response = await fetch(BASE_URL + '/auth', {
             method: 'POST',
+            body: JSON.stringify(payload),
             headers: {
-                // @ts-ignore
-                Email: email,
-                Password: password,
-            },
+                "Content-Type": "application/json"
+            }
         });
 
         if (response.status > 299) {
