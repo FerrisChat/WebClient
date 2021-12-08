@@ -1,0 +1,1 @@
+export const DEFAULT_API_URL = 'https://api.ferris.chat/v0';
