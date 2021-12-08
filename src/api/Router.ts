@@ -41,7 +41,7 @@ export type Router = {
 
 export default function makeRouter(requester: Requester): Router {
     const parts = [ '' ];
-    const handler: ProxyHandler<Function> = {
+    const handler: ProxyHandler<() => void> = {
         get(_, name: string) {
             if (toRaw.includes(name))
                 return () => parts.join('/');
@@ -54,7 +54,7 @@ export default function makeRouter(requester: Requester): Router {
                 );
 
                 return new Proxy(() => {}, {
-                    apply(options: Options = {}) {
+                    apply(_target, _thisArg, [ options = {} ]: Options[] = []) {
                         return makeRequest(options)
                     },
                     get(_, option: string) {
