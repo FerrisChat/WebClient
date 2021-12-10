@@ -1,0 +1,41 @@
+import React from 'react';
+import styled from 'styled-components';
+
+import icon from '../../assets/branding/ferrischat_icon.png';
+
+type P = { height?: number, absolute?: boolean };
+
+const Container = styled.div<Required<P>>`
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: ${props => props.height * 4.2}px;
+    position: ${props => props.absolute && 'absolute'};
+
+    img {
+        width: ${props => props.height}px;
+        height: ${props => props.height}px;
+        border-radius: 35vw;
+        transition: box-shadow 3s ease;
+
+        &:hover {
+            box-shadow: 0 0 24px white;
+        }
+    }
+
+    span {
+        font-weight: 700;
+        font-size: ${props => props.height * 0.6}px;
+        opacity: 0.9;
+    }
+`;
+
+export default function FerrisChatLogo({ height = 48, absolute = false }: P) {
+    return (
+        <Container className="ferris-chat-branding-logo" height={height} absolute={absolute}>
+            <img src={icon} alt="FerrisChat" />
+            <span>FerrisChat</span>
+        </Container>
+    )
+}

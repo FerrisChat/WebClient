@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
+import Title from '../components/util/Title';
+
 const Container = styled.div`
     width: 100%;
     height: 100%;
@@ -49,6 +51,7 @@ const Text = styled.h2`
 export default function LoadingScreen() {
     return (
         <Container>
+            <Title>Loading FerrisChat...</Title>
             <Ferris />
             <Text>Loading...</Text>
         </Container>

@@ -9,4 +9,5 @@ const MESSAGE =
 
 console.log('%c' + MESSAGE, 'font-size: 24px');
 
+window.app = {};
 ReactDOM.render(<App />, document.getElementById('app'));
