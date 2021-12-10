@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
+import ferris from '../assets/icons/ferris.png';
 import Title from '../components/util/Title';
 
 const Container = styled.div`
@@ -10,6 +11,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: ${props => props.theme.tertiary};
     padding-top: 10px;
 `;
 
@@ -52,7 +54,7 @@ export default function LoadingScreen() {
     return (
         <Container>
             <Title>Loading FerrisChat...</Title>
-            <Ferris />
+            <Ferris src={ferris} />
             <Text>Loading...</Text>
         </Container>
     )

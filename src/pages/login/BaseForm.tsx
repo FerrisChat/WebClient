@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Submit from '../../components/common/Submit';
+import { parseCSSColor } from '../../utils';
 
 const BaseFormContainer = styled.form`
     position: absolute;
@@ -30,10 +31,9 @@ const BaseFormContainer = styled.form`
         right: 0px;
         bottom: 0px;
         left: 0px;
-        background-color: ${props => props.theme.tertiary};
-        backdrop-filter: blur(8px) saturate(0.7);
+        background-color: ${props => parseCSSColor(props.theme.tertiary, 0.7).rgba};
+        backdrop-filter: blur(8px) saturate(0.7);  // aware that this does not work
         border-radius: 12px;
-        opacity: 0.7;
         z-index: -1;
     }
 `;

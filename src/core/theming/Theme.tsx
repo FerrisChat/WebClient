@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { createGlobalStyle, ThemeProvider } from "styled-components";
+import WebFont from 'webfontloader';
+
+import Fonts, { Font } from'./Fonts';
 
 export class Reference<T = any> {
     private $key: string[];
@@ -39,6 +42,11 @@ export interface ThemeTemplate extends Record<string, ThemeTemplateValue<any>> {
         secondary: ThemeTemplateValue;
     };
 
+    fonts?: ThemeTemplateValue<Partial<{
+        serif: ThemeTemplateValue<Font>,
+        monospace: ThemeTemplateValue<Font>,
+    }>>;
+
     toast?: ThemeTemplateValue<Partial<{
         generic: ThemeTemplateValue;
         success: ThemeTemplateValue;
@@ -67,6 +75,11 @@ export type SanitizedThemeTemplate = {
 
 export function makeTheme(theme: ThemeTemplate): ThemeTemplate {
     return {
+        fonts: {
+            serif: Fonts.Inter,
+            monospace: Fonts.FiraCode,
+            ...theme.fonts,
+        },
         toast: {
             generic: ref('accent.secondary'),
             success: ref('success'),
@@ -114,26 +127,47 @@ export const presetThemes: Record<string, ThemeTemplate> = {
     })
 } as const;
 
-function $resolveThemeTemplate(theme: ThemeTemplate, buffer?: any): SanitizedThemeTemplate {
+function $resolveThemeTemplate(theme: ThemeTemplate, buffer?: any, $$loadFonts: boolean = true): SanitizedThemeTemplate {
     if (!buffer) buffer = theme;
 
     for (const [ k, v ] of Object.entries(buffer)) {
         if (v instanceof Reference) {
             buffer[k] = v.resolved(theme)
         }
-        else if (typeof v === 'object') {
-            buffer[k] = $resolveThemeTemplate(theme, v)
+        // @ts-ignore
+        else if (typeof v === 'object' && !v?.serif) {
+            buffer[k] = $resolveThemeTemplate(theme, v, false)
         }
     }
+
+    if ($$loadFonts) loadFonts(theme)
     return theme as SanitizedThemeTemplate
+}
+
+const $knownFonts: string[] = [];
+
+function $loadFont(font: Font) {
+    if ($knownFonts.includes(font.name)) return;
+    WebFont.load(font.loader);
+    $knownFonts.push(font.name)
+}
+
+export function loadFonts({ fonts: { serif, monospace } }: ThemeTemplate | SanitizedThemeTemplate) {
+    $loadFont(serif)
+    $loadFont(monospace)
 }
 
 export const defaultTheme = $resolveThemeTemplate(presetThemes.dark);
 
 const BaseTheme = createGlobalStyle<{ theme: SanitizedThemeTemplate }>`
+    :root {
+        --font-serif: '${props => props.theme.fonts.serif.name}', serif;
+        --font-monospace: '${props => props.theme.fonts.monospace.name}', monospace;
+    }
+
     * {
         color: ${props => props.theme.text};
-        font-family: inherit;
+        font-family: var(--font-serif);
     }
     
     html {
@@ -170,8 +204,12 @@ export default function Theme({ children }: SupportsChildren) {
     const [ theme, setTheme ] = useState<SanitizedThemeTemplate>(defaultTheme);
 
     // This could be achieved with React.useContext but that has a bit more boilerplate
-    window.app.setTheme = (t: ThemeTemplate) => setTheme($resolveThemeTemplate(t));
-    window.app.updateTheme = (t: ThemeTemplate) => setTheme($resolveThemeTemplate({ ...theme, ...t }));
+    window.app.setTheme = (t: ThemeTemplate) =>
+        // Preserve font
+        setTheme($resolveThemeTemplate({ ...t, fonts: { ...theme.fonts, ...t.fonts } }));
+
+    window.app.updateTheme = (t: ThemeTemplate) =>
+        setTheme($resolveThemeTemplate({ ...theme, ...t, fonts: { ...theme.fonts, ...t.fonts } }));
 
     return (
         <ThemeProvider theme={theme}>

@@ -1,4 +1,4 @@
-import type { ThemeTemplate } from './core/Theme';
+import type { ThemeTemplate } from './core/theming/Theme';
 
 declare global {
     type Child = React.ElementType | React.ReactNode;
