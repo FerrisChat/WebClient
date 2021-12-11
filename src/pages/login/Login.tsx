@@ -19,8 +19,8 @@ export default function Login() {
         <Container>
             <FerrisChatLogo />
             <Routes>
-                <Route path="create" element={<LoginForm />} />
-                <Route path="*" element={<RegisterForm />} />
+                <Route path="create" element={<RegisterForm />} />
+                <Route path="*" element={<LoginForm />} />
             </Routes>
         </Container>
     )
