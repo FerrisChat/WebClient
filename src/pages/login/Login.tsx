@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Lazy } from '../../app/App';
 import FerrisChatLogo from '../../components/branding/FerrisChatLogo';
-
 import banner from '../../assets/banners/ferris_plushy.jpg';
 
 const Container = styled.div`
@@ -13,13 +11,16 @@ const Container = styled.div`
     height: 100%;
 `;
 
+const LoginForm = lazy(() => import('./LoginForm'))
+const RegisterForm = lazy(() => import('./RegisterForm'))
+
 export default function Login() {
     return (
         <Container>
             <FerrisChatLogo />
             <Routes>
-                <Route path="create" element={<Lazy path='../pages/login/RegisterForm' />} />
-                <Route path="*" element={<Lazy path='../pages/login/LoginForm' />} />
+                <Route path="create" element={<LoginForm />} />
+                <Route path="*" element={<RegisterForm />} />
             </Routes>
         </Container>
     )

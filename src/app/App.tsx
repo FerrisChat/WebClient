@@ -17,14 +17,11 @@ import Theme from '../core/theming/Theme';
 import Title from '../components/util/Title';
 import LoadingScreen from '../pages/LoadingScreen';
 
-export const Lazy = ({ path, ...props }: { path: string }) => {
-    const Element = lazy(() => import(/* @vite-ignore */ path));
-    return <Element {...props}/>;
-};
+const Login = lazy(() => import('../pages/login/Login'))
 
 const LoginOrApp = () => Cookies.get('token')
     ? <Navigate to='/' />
-    : <Lazy path='../pages/login/Login' />;
+    : <Login />;
 
 const AppOrLogin = () => Cookies.get('token')
     ? <MainApp />
