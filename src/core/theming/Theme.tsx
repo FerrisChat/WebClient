@@ -124,7 +124,26 @@ export const presetThemes: Record<string, ThemeTemplate> = {
             primary: '#5ca7d3',
             secondary: '#939394',
         },
-    })
+    }),
+    light: makeTheme({
+        primary: '#ffffff',
+        secondary: '#f0f0f0',
+        tertiary: '#ececec',
+        quarternary: '#dddddd',
+
+        text: '#0c0c0c',
+        link: '#269acf',
+        linkHover: '#52aad3',
+
+        success: '#52f387',
+        warning: '#ffe656',
+        error: '#ff5d5d',
+
+        accent: {
+            primary: '#9be2f8',
+            secondary: '#cfcfe2',
+        },
+    }),
 } as const;
 
 function $resolveThemeTemplate(theme: ThemeTemplate, buffer?: any, $$loadFonts: boolean = true): SanitizedThemeTemplate {
