@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Lazy } from '../../app/App';
 import FerrisChatLogo from '../../components/branding/FerrisChatLogo';
 
-import banner from '../../assets/banners/ferris-plushy.jpg';
+import banner from '../../assets/banners/ferris_plushy.jpg';
 
 const Container = styled.div`
     background-image: url(${banner});

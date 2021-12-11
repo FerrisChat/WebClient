@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 import type API from '../api/API';
 import type {
     IdentifyAccepted,
@@ -47,6 +49,12 @@ export default class WebSocketClient {
 
     parseMessage(message: MessageEvent) {
         console.log(message)
+
+        if (message.data === 'null') {
+            // server bug; token invalidated.
+            Cookies.remove('token');
+            window.location.reload()
+        }
 
         const parsed = JSON.parse(message.data);
         const event = parsed.c;

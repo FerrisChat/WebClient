@@ -1,3 +1,13 @@
+/**
+ * App.tsx: Entire app including login pages
+ * > MainApp.tsx: Authenticated app in which is the actual client
+ *   > ChatApp.tsx: The part of the main app which has a common layout; 
+ *     entire main app excluding settings
+ * 
+ * These are separate in order to independently route their
+ * component-specific routes
+ */
+
 import Cookies from 'js-cookie';
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';

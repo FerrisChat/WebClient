@@ -256,8 +256,6 @@ const BaseTheme = createGlobalStyle<{ theme: SanitizedThemeTemplate }>`
         -o-user-select: none;
         user-select: none;
     }
-
-    
 `;
 
 export default function Theme({ children }: SupportsChildren) {

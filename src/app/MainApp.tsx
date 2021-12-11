@@ -1,9 +1,14 @@
 import Cookies from 'js-cookie';
 import React, { lazy } from 'react';
+import { Route, Routes } from 'react-router';
+
+import ChatApp from './ChatApp';
 
 function $MainApp() {
     return (
-        <p>hey {window.app.api.user!.name}</p>
+        <Routes>
+            <Route path='*' element={<ChatApp />} />
+        </Routes>
     )
 }
 
@@ -20,7 +25,14 @@ const MainApp = lazy(
         catch (err) {
             return {
                 default: () => (
-                    <p>err while connecting to ws: <code>{(err as Error).message}</code>; please reload the page</p>
+                    <div>
+                        Error while connecting to the websocket: <code>{(err as Error).message}</code>
+                        <br />
+                        <br />
+                        Reloading this page may fix the error. If the error persists, try clearing your cookies and try again.
+                        <br />
+                        If all else fails, the servers at FerrisChat may be down.
+                    </div> 
                 ),
             }  // TODO: Better error page?
         }
