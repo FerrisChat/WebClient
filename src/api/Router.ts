@@ -24,20 +24,18 @@ type Requester = typeof RESTClient.prototype.request;
 type Options = Parameters<Requester>[2];
 
 type SanitizedRequester =
-    ((options: Options) => ReturnType<Requester>)
+    ((options?: Options) => ReturnType<Requester>)
     & {
-        json(json: any): ReturnType<Requester>,
+        json(json?: any): ReturnType<Requester>,
         withHeaders(headers: any): ReturnType<Requester>,
         withParams(params: any): ReturnType<Requester>,
         // this is not repetitive as there is intellisense for parameter names
         [key: string]: (o: any) => ReturnType<Requester>,
     };
 
-type PartialRoute = ((route: any) => PartialRoute) & Router;
-
-export type Router = {
-    readonly [x in Method]: SanitizedRequester
-} & { [key: string]: PartialRoute };
+export type Router = { readonly [x in Method]: SanitizedRequester }
+    & { [key: string]: Router }
+    & ((route: any) => Router);
 
 export default function makeRouter(requester: Requester): Router {
     const parts = [ '' ];

@@ -1,4 +1,4 @@
-import styled from "styled-components";;
+import styled from "styled-components";
 
 export default styled.input`
     border: none;
@@ -12,5 +12,10 @@ export default styled.input`
     &:hover {
         opacity: 0.8;
         cursor: pointer;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
     }
 `;

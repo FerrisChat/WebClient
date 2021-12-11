@@ -11,7 +11,16 @@ const Fonts: Record<string, Font> = {
         name: 'Inter',
         loader: {
             google: {
-                families: ['Inter'],
+                families: ['Inter:200,300,400,500,600,700,800,900'],
+            },
+        },
+        type: 'serif',
+    },
+    AtkinsonHyperlegible: {
+        name: 'Atkinson Hyperlegible',
+        loader: {
+            google: {
+                families: ['Atkinson Hyperlegible:400,400i,700,700i'],
             },
         },
         type: 'serif',
@@ -20,7 +29,7 @@ const Fonts: Record<string, Font> = {
         name: 'Fira Code',
         loader: {
             google: {
-                families: ['Fira Code'],
+                families: ['Fira Code:300,400,500,600,700'],
             },
         },
         type: 'monospace',

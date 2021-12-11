@@ -35,6 +35,7 @@ const Ferris = styled.img`
 const Text = styled.h2`
     text-align: center;
     font-size: 40px;
+    font-weight: 700;
     opacity: 0.5;
     padding-top: 10vh;
     animation: ${keyframes`

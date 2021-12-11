@@ -12,7 +12,9 @@ const Container = styled.div<{ padding?: string }>`
     }
 
     & > label {
-        margin: 6px 2px;
+        margin: 6px 0;
+        font-weight: 500;
+        font-size: 0.95em;
     }
 `;
 

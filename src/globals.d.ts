@@ -1,3 +1,4 @@
+import type API from './api/API';
 import type { ThemeTemplate } from './core/theming/Theme';
 
 declare global {
@@ -9,6 +10,7 @@ declare global {
 
     interface Window {
         app: {
+            api: API;
             setTheme?(theme: ThemeTemplate): void;
             updateTheme?(theme: ThemeTemplate): void;
         };

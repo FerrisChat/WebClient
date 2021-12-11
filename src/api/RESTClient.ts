@@ -77,6 +77,7 @@ export default class RESTClient {
                 message = 'An unknown error occured.';
 
             else switch (error.response.status) {
+                case 400:
                 case 401:
                 case 403: message = 'Invalid email or password.'; break;
                 case 404: message = 'User associated with the given email not found.'; break;

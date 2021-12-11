@@ -49,18 +49,30 @@ const FormMessageContainer = styled.div`
     opacity: 0.9;
 `;
 
+const FormErrorContainer = styled.div`
+    text-align: center;
+    font-size: 0.95em;
+    text-shadow: 0 0 12px ${props => props.theme.tertiary};
+    color: ${props => props.theme.error};
+`;
+
 interface BaseFormProps {
     title: string;
     message?: string | Children;
+    error?: string;
     submit: string;
     onSubmit: React.FormEventHandler;
 }
 
-export default function BaseForm({ title, message, submit, onSubmit, children }: RequiresChildren<BaseFormProps>) {
+export default function BaseForm({ title, message, error, submit, onSubmit, children }: RequiresChildren<BaseFormProps>) {
     return (
         <BaseFormContainer onSubmit={e => {e.preventDefault(); return onSubmit(e)}}>
             <div>
                 <h2>{title}</h2>
+                {
+                    error &&
+                    <FormErrorContainer>{error}</FormErrorContainer>
+                }
                 <FormItemsContainer>{children}</FormItemsContainer>
                 {
                     message &&

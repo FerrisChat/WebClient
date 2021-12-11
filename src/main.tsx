@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import API from './api/API';
 import App from './app/App';
 
 const MESSAGE = 
@@ -9,5 +10,5 @@ const MESSAGE =
 
 console.log('%c' + MESSAGE, 'font-size: 24px');
 
-window.app = {};
+window.app = { api: new API() };
 ReactDOM.render(<App />, document.getElementById('app'));
