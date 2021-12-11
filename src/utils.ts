@@ -22,6 +22,7 @@ export function parseCSSColor(color: string, forceAlpha?: number) {
     const [ r, g, b, a ] = parsed.slice(parsed.startsWith('rgba') ? 5 : 4, -1).split(/ *, */g).map(Number);
     const hex = '#' + [ r, g, b ].map(o => o.toString(16).padStart(2, '0')).join('');
     const actualA = forceAlpha == null ? (a ?? 1) : forceAlpha;
+    element.remove()
 
     return {
         r,
