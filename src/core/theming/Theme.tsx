@@ -184,6 +184,8 @@ const BaseTheme = createGlobalStyle<{ theme: SanitizedThemeTemplate }>`
 
     a {
         color: ${props => props.theme.link};
+        text-decoration: none;
+        transition: color 0.5s ease;
     }
 
     a:hover {

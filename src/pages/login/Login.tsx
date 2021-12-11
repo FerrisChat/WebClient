@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 
-import LoginForm from './LoginForm';
+import { Lazy } from '../../app/App';
 import FerrisChatLogo from '../../components/branding/FerrisChatLogo';
 
 import banner from '../../assets/banners/ferris-plushy.jpg';
@@ -18,7 +18,8 @@ export default function Login() {
         <Container>
             <FerrisChatLogo />
             <Routes>
-                <Route path="*" element={<LoginForm />} />
+                <Route path="create" element={<Lazy path='../pages/login/RegisterForm' />} />
+                <Route path="*" element={<Lazy path='../pages/login/LoginForm' />} />
             </Routes>
         </Container>
     )

@@ -45,6 +45,18 @@ export default class API {
         this.rest = rest;
     }
 
+    async register(options: { username: string, email: string, password: string, pronouns: string }) {
+        const rest = new RESTClient({});
+        try {
+            await rest.register(options);
+            Cookies.set('token', rest._token!)
+        }
+        catch (err) {
+            throw err;
+        }
+        this.rest = rest;
+    }
+
     async wsConnect(): Promise<void> {
         const ws = new WebSocketClient(this);
         try {

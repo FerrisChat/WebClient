@@ -17,6 +17,7 @@ const BaseFormContainer = styled.form`
         padding: 4px;
         display: grid;
         flex-direction: column;
+        min-width: 250px;
     }
 
     div h2 {

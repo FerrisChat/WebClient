@@ -3,6 +3,7 @@ import type { Router } from './Router';
 
 import { DEFAULT_API_URL } from '../constants';
 import { HTTPError } from '../errors';
+import type { User } from '../types/objects';
 
 export type RequestMethod =
     'GET'
@@ -81,6 +82,44 @@ export default class RESTClient {
                 case 401:
                 case 403: message = 'Invalid email or password.'; break;
                 case 404: message = 'User associated with the given email not found.'; break;
+                case 500:
+                case 502:
+                case 504: message = 'The servers at FerrisChat are down!'; break; 
+                default: message = 'An unknown error occurred.';
+            }
+
+            throw new Error(message);
+        }
+    }
+
+    async register({
+        username,
+        email,
+        password,
+        pronouns,
+    }: {
+        username: string,
+        email: string,
+        password: string,
+        pronouns?: string,
+    }): Promise<User | undefined> {
+        try {
+            const response = await this.router.users.post.json({ username, email, password, pronouns });
+            this.params.email = email;
+            this.params.password = password;
+            await this.resolveToken();
+            return response
+        }
+        catch (error) {
+            let message;
+            if (!(error instanceof HTTPError))
+                message = 'An unknown error occured.';
+
+            else switch (error.response.status) {
+                case 400: message = 'Please fill out all fields.'; break;
+                case 401:
+                case 403: message = 'You are forbidden to create accounts.'; break;
+                case 409: message = 'All slots for this username are already taken.'; break;
                 case 500:
                 case 502:
                 case 504: message = 'The servers at FerrisChat are down!'; break; 

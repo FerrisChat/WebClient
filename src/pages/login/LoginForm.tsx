@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 
 import BaseForm from './BaseForm';
 import NamedInput from '../../components/common/NamedInput';
@@ -10,7 +10,9 @@ export default function LoginForm() {
 
     return (
         <BaseForm title='Login to FerrisChat' error={error} message={
-            <>Don't have an account? Well too bad</>  // TODO
+            <span>
+                Don't have an account? <Link to="create">Register</Link>
+            </span>  // TODO
         } submit='Log In' onSubmit={
             async ({ target }) => {
                 // @ts-ignore
