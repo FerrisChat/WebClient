@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React, { lazy } from 'react';
 
 function $MainApp() {
@@ -8,6 +9,10 @@ function $MainApp() {
 
 const MainApp = lazy(
     async () => {
+        let token;
+        if (!window.app.api.token && (token = Cookies.get('token')))
+            await window.app.api.loginWithToken(token);
+
         // we take this async advantage in order to reliably connect to the ws
         try {
             await window.app.api!.wsConnect()

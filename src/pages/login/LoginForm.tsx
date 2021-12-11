@@ -28,7 +28,7 @@ export default function LoginForm() {
                     return
                 };
 
-                navigate('/home')
+                navigate('/')
             }
         }>
             <NamedInput name='email' type='email' label='Email' placeholder='Email' autoComplete='email' required />

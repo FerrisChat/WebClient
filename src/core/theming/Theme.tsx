@@ -64,8 +64,8 @@ export interface ThemeTemplate extends Record<string, ThemeTemplateValue<any>> {
 
     scrollbar?: ThemeTemplateValue<Partial<{
         thumb: ThemeTemplateValue;
+        hover: ThemeTemplateValue;
         track: ThemeTemplateValue;
-        background: ThemeTemplateValue;
     }>>;
 }
 
@@ -96,9 +96,9 @@ export function makeTheme(theme: ThemeTemplate): ThemeTemplate {
             ...theme.button,
         },
         scrollbar: {
-            thumb: 'inherit',
-            track: 'inherit',
-            background: 'inherit',
+            thumb: ref('secondary'),
+            hover: ref('primary'),
+            track: ref('tertiary'),
             ...theme.scrollbar,
         },
         ...theme,
@@ -141,7 +141,7 @@ function $resolveThemeTemplate(theme: ThemeTemplate, buffer?: any, $$loadFonts: 
     }
 
     if ($$loadFonts) loadFonts(theme)
-    return theme as SanitizedThemeTemplate
+    return buffer as SanitizedThemeTemplate
 }
 
 const $knownFonts: string[] = [];
@@ -168,11 +168,39 @@ const BaseTheme = createGlobalStyle<{ theme: SanitizedThemeTemplate }>`
     * {
         color: ${props => props.theme.text};
         font-family: var(--font-serif);
+        box-sizing: border-box;
+        text-rendering: optimizeLegibility !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
     
     html {
         background-size: cover;
         background-repeat: no-repeat;
+        scrollbar-color: ${
+            ({ theme: { scrollbar: { thumb, track } } }) => thumb + track
+        };
+        scrollbar-width: 8px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        background-color: ${props => props.theme.scrollbar.track};
+        border-radius: 50vw;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: ${props => props.theme.scrollbar.track};
+        border-radius: 50vw;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: ${props => props.theme.scrollbar.thumb};
+        border-radius: 50vw;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: ${props => props.theme.scrollbar.hover};
     }
 
     body {
@@ -209,6 +237,8 @@ const BaseTheme = createGlobalStyle<{ theme: SanitizedThemeTemplate }>`
         -o-user-select: none;
         user-select: none;
     }
+
+    
 `;
 
 export default function Theme({ children }: SupportsChildren) {

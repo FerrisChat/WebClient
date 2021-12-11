@@ -1,5 +1,6 @@
+import Cookies from 'js-cookie';
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import MainApp from './MainApp';
 import Theme from '../core/theming/Theme';
@@ -10,6 +11,14 @@ export const Lazy = ({ path, ...props }: { path: string }) => {
     const Element = lazy(() => import(/* @vite-ignore */ path));
     return <Element {...props}/>;
 };
+
+const LoginOrApp = () => Cookies.get('token')
+    ? <Navigate to='/' />
+    : <Lazy path='../pages/login/Login' />;
+
+const AppOrLogin = () => Cookies.get('token')
+    ? <MainApp />
+    : <Navigate to='/login' />;
 
 export default function App() {
     return (
@@ -25,8 +34,8 @@ export default function App() {
                                 <Route path='loading-screen' element={<LoadingScreen />} />
                                 <Route path='*' element={<p>404 Meta page not found</p>} />
                             </Route>
-                            <Route path='login/*' element={<Lazy path='../pages/login/Login' />} />
-                            <Route path='*' element={<MainApp />} />
+                            <Route path='login/*' element={<LoginOrApp />} />
+                            <Route path='*' element={<AppOrLogin />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

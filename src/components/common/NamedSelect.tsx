@@ -8,6 +8,7 @@ const Container = styled.div<{ padding?: string }>`
         border: none;
         border-radius: 6px;
         padding: ${props => props.padding};
+        margin: 0;
         background-color: ${props => props.theme.secondary};
         position: relative;
         -webkit-appearance: none;

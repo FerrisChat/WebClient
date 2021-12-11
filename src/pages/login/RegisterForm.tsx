@@ -29,7 +29,7 @@ export default function RegisterForm() {
                     return
                 };
 
-                navigate('/home')
+                navigate('/')
             }
         }>
             <NamedInput name='username' label='Username' placeholder='Username' autoComplete='username' minLength={1} maxLength={48} required />

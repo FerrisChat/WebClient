@@ -12,12 +12,16 @@ const BaseFormContainer = styled.form`
     left: 50%;
     border-radius: 12px;
     padding: 32px;
+    max-height: 92%;
+
+    & > div {
+        overflow-y: auto;
+    }
 
     div {
         padding: 4px;
         display: grid;
         flex-direction: column;
-        min-width: 250px;
     }
 
     div h2 {
