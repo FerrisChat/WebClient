@@ -27,8 +27,8 @@ const GuildSelectContainer = styled.div`
 `;
 
 const ToHomepage = styled(HomeIcon)`
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
 `;
 
 const ToHomepageContainer = styled(Link)`
