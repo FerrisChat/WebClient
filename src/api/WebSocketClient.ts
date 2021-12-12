@@ -11,7 +11,7 @@ export const WSEventHandlers: Record<string, (ws: WebSocketClient, event: any) =
     IdentifyAccepted(ws, { user }: IdentifyAccepted) {
         if (!ws._identified) {
             ws._identified = true;
-            user!.avatar = defaultAvatar;  // TODO: remove when they are implemented
+            user!.avatar ??= defaultAvatar;
         
             const { api } = ws;
             api.user = user;
