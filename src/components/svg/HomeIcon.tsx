@@ -8,9 +8,9 @@ const Container = styled.svg`
     }
 `;
 
-export default function HomeIcon() {
+export default function HomeIcon({ width = 40 }: { width?: number }) {
     return (
-        <Container xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 400 400" fill="none">
+        <Container xmlns="http://www.w3.org/2000/svg" width={width} viewBox="0 0 400 400" fill="none">
             <g>
                 <path fillRule="evenodd" clipRule="evenodd" d={`
                     M139 121C112.49 121 91 142.49 91 169V294C91 320.51 112.49 342 139

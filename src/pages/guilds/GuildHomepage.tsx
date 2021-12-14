@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import { HomepageContainer } from '../../app/ChatApp';
+import { HomepageContainer } from '../home/Homepage';
 
 export default function GuildHomepage() {
     const { guildId } = useParams();
@@ -15,7 +15,7 @@ export default function GuildHomepage() {
     return (
         <HomepageContainer>
             <h1>Welcome to {guild.name}!</h1>
-            <span>Abcdefg, hijklmnop! Q</span>
+            <span>You can use the channel sidebar to navigate around.</span>
         </HomepageContainer>
     )
 }

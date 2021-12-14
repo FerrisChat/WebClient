@@ -2,48 +2,59 @@ import React from 'react';
 import { Route, Routes } from 'react-router';
 import styled from 'styled-components';
 
+import ChannelSidebar from '../components/channels/ChannelSidebar';
+
 import GuildSelect from '../components/guilds/GuildSelect';
 import GuildHomepage from '../pages/guilds/GuildHomepage';
 
+import Homepage from '../pages/home/Homepage';
+import HomepageSidebar from '../pages/home/HomepageSidebar'
+
+import UserInfo from '../components/app/UserInfo';
+
 const ParentContainer = styled.div`
-    display: flex;
+    display: grid;
     height: 100vh;
+    grid-template-rows: 1fr;
+    grid-template-columns: auto 1fr;
 `;
 
-export const HomepageContainer = styled.div`
+const LeftGroup = styled.div`
     display: flex;
-    flex-grow: 1;
+    overflow: hidden;
+`;
+
+const Sidebar = styled.div`
+    display: flex;
     flex-direction: column;
-    margin: 10%;
+    background-color: ${props => props.theme.tertiary};
+    width: clamp(220px, 25vw, 260px);
 
-    h1,
-    span {
-        text-align: center;
-    }
-
-    h1 {
-        font-size: 36px;
-    }
-
-    span {
-        font-size: 1.2em;
+    .content {
+        display: flex;
+        flex-grow: 1;
     }
 `;
 
 export default function ChatApp() {
-    const api = window.app.api;
-
     return (
         <ParentContainer>
-            <GuildSelect />
+            <LeftGroup>
+                <GuildSelect />
+                <Sidebar>
+                    <div className='content'>
+                        <Routes>
+                            <Route path='guilds/:guildId/:channelId' element={<ChannelSidebar />} />
+                            <Route path='guilds/:guildId/*' element={<ChannelSidebar />} />
+                            <Route path='*' element={<HomepageSidebar />} />
+                        </Routes>
+                    </div>
+                    <UserInfo />
+                </Sidebar>
+            </LeftGroup>
             <Routes>
                 <Route path='guilds/:guildId' element={<GuildHomepage />} />
-                <Route path='*' element={
-                    <HomepageContainer>
-                        <h1>Welcome, {api.user!.name}!</h1>
-                        <span>You are currently in {api.guilds!.length} guilds.</span>
-                    </HomepageContainer>
-                } />
+                <Route path='*' element={<Homepage />} />
             </Routes>
         </ParentContainer>
     )
