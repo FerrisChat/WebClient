@@ -7,6 +7,7 @@ const UserInfoContainer = styled.div`
     padding: 12px;
     background-color: ${props => props.theme.tertiary};
     font-weight: 600;
+    cursor: default;
 
     img {
         width: 42px;

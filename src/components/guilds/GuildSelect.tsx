@@ -47,15 +47,15 @@ const ToHomepageContainer = styled(Link)`
 
 const Split = styled.hr`
     background-color: ${props => props.theme.text};
-    opacity: 0.2;
+    opacity: 0.1;
     width: 80%;
-    height: 3px;
+    height: 4px;
     border-radius: 50vw;
 `;
 
 export default function GuildSelect() {
     return (
-        <GuildSelectContainer>
+        <GuildSelectContainer className='unselectable'>
             <div>
                 <ToHomepageContainer to='/'>
                     <ToHomepage />

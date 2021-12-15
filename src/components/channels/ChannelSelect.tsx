@@ -14,7 +14,7 @@ const ChannelSelectContainer = styled.div`
 
 export default function ChannelSelect({ guild, active }: { guild: Guild, active: boolean }) {
     return (
-        <ChannelSelectContainer>
+        <ChannelSelectContainer className='unselectable'>
             <ChannelButtonContainer to={`/guilds/${guild.id_string}`} active={active}>
                 <div>Home</div>
             </ChannelButtonContainer>

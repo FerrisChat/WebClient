@@ -12,6 +12,9 @@ import HomepageSidebar from '../pages/home/HomepageSidebar'
 
 import UserInfo from '../components/app/UserInfo';
 
+import FirstMessage from '../components/messaging/FirstMessage';
+import Message from '../components/messaging/Message';
+
 const ParentContainer = styled.div`
     display: grid;
     height: 100vh;
@@ -53,6 +56,7 @@ export default function ChatApp() {
                 </Sidebar>
             </LeftGroup>
             <Routes>
+                <Route path='guilds/:guildId/:channelId' element={<></>} />
                 <Route path='guilds/:guildId' element={<GuildHomepage />} />
                 <Route path='*' element={<Homepage />} />
             </Routes>
