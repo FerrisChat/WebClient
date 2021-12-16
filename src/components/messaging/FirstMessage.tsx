@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Container, Content } from './Message';
+import { humanizeDate, parseSnowflake } from '../../utils';
 
 import type { Message } from '../../types/objects';
 import defaultAvatar from '../../assets/icons/avatar_default.png';
@@ -14,6 +15,7 @@ export interface MessageProps {
 
 const FirstMessageContainer = styled(Container)`
     margin-top: 16px;
+    position: relative;
 
     & > img {
         width: 42px;
@@ -50,7 +52,7 @@ export default function FirstMessage({ message }: MessageProps) {
             <img src={author.avatar || defaultAvatar} className='unselectable' />
             <Heading>
                 <span>{author.name}</span>
-                <span>Today at 5:00 PM</span>
+                <span>{humanizeDate(parseSnowflake(message.id_string))}</span>
             </Heading>
             <Content>
                 {message.content}

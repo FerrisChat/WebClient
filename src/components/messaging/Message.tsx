@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { parseCSSColor } from '../../utils';
+import { parseCSSColor, parseSnowflake } from '../../utils';
 import type { MessageProps } from './FirstMessage';
 
 export const Container = styled.div`
     padding: 2px 0;
+    position: relative;
     transition: background-color 0.3s ease;
 
     & .timestamp {
@@ -24,8 +25,12 @@ export const Container = styled.div`
 
 export const Content = styled.div<{ pending?: boolean, error?: boolean }>`
     padding-left: 80px;
+    padding-right: 10px;
     font-size: 1em;
-    
+    overflow: hidden;
+    text-wrap: break-word;
+    word-break: break-word;
+
     opacity: ${props => props.pending && 0.6};
     color: ${props => props.error && props.theme.error};
 
@@ -47,7 +52,11 @@ export default function Message({ message }: MessageProps) {
     return (
         <Container>
             <Timestamp className='timestamp unselectable'>
-                8:05 PM
+                {parseSnowflake(message.id_string).toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true,
+                })}
             </Timestamp>
             <Content>
                 {message.content}

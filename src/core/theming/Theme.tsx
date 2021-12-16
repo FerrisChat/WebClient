@@ -203,7 +203,7 @@ const BaseTheme = createGlobalStyle<{ theme: SanitizedThemeTemplate }>`
     }
 
     ::-webkit-scrollbar {
-        width: 8px;
+        width: 12px;
         background-color: ${props => props.theme.scrollbar.track};
         border-radius: 50vw;
     }
@@ -215,6 +215,7 @@ const BaseTheme = createGlobalStyle<{ theme: SanitizedThemeTemplate }>`
 
     ::-webkit-scrollbar-thumb {
         background-color: ${props => props.theme.scrollbar.thumb};
+        border: solid ${props => props.theme.scrollbar.track} 3px;
         border-radius: 50vw;
     }
 

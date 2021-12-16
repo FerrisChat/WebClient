@@ -3,11 +3,15 @@ import Cookies from 'js-cookie';
 import type API from '../api/API';
 import type {
     IdentifyAccepted,
+    MessageCreate,
+    MessageDelete,
 } from '../types/ws';
 
 import defaultAvatar from '../assets/icons/avatar_default.png';
 
-export const WSEventHandlers: Record<string, (ws: WebSocketClient, event: any) => any> = {
+export type WSEventHandler = (ws: WebSocketClient, event: any) => any;
+
+export const WSEventHandlers: Record<string, WSEventHandler> = {
     IdentifyAccepted(ws, { user }: IdentifyAccepted) {
         if (!ws._identified) {
             ws._identified = true;
@@ -19,6 +23,22 @@ export const WSEventHandlers: Record<string, (ws: WebSocketClient, event: any) =
 
             ws._waiter?.(true)
         }
+    },
+
+    MessageCreate({ api: { messages } }, { message }: MessageCreate) {
+        const channelId = message.channel_id_string;
+        (
+            messages.get(channelId) ?? window.app.api.messages.set(channelId, []).get(channelId)!
+        )
+            .push(message);
+    },
+
+    MessageDelete({ api }, { message }: MessageDelete) {
+        const messages = api.messages.get(message.channel_id_string);
+        if (!messages) return;
+        
+        const index = messages.findIndex(msg => msg.id_string === message.id_string);
+        if (index) messages.splice(index, 1)
     },
 } as const
 
@@ -32,10 +52,13 @@ export default class WebSocketClient {
     _identified: boolean;
     _waiter?: (r: any) => void;
 
+    listeners: Map<string, WSEventHandler>;
+
     constructor(api: API) {
         this.api = api;
         this.mustKeepAlive = false;
         this._identified = false;
+        this.listeners = new Map<string, WSEventHandler>()
     }
 
     get rest() {
@@ -59,7 +82,11 @@ export default class WebSocketClient {
         const parsed = JSON.parse(message.data);
         const event = parsed.c;
 
-        if (event) WSEventHandlers[event]?.(this, parsed.d);
+        if (event) {
+            const data = parsed.d;
+            WSEventHandlers[event]?.(this, data);
+            this.listeners.get(event)?.(this, data)
+        };
     }
 
     async connect() {
@@ -110,5 +137,13 @@ export default class WebSocketClient {
 
     sendJSON(json: any) {
         this.ws!.send(JSON.stringify(json))
+    }
+    
+    addListener(event: string, callback: WSEventHandler) {
+        this.listeners.set(event, callback)
+    }
+
+    removeListener(event: string) {
+        this.listeners.delete(event)
     }
 }

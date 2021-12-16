@@ -4,7 +4,7 @@ import RESTClient from './RESTClient';
 import WebSocketClient from './WebSocketClient';
 
 import type { Router } from './Router';
-import type { Guild, User } from '../types/objects';
+import type { Guild, Message, User } from '../types/objects';
 
 /**
  * Parent API client which wraps around both the REST and Gateway FerrisChat APIs.
@@ -16,8 +16,12 @@ export default class API {
     user?: User;
     guilds?: Guild[];
 
+    messages: Map<string, Message[]>;
+    loadedChannels: Set<string>;
+
     constructor() {
-        
+        this.messages = new Map<string, Message[]>();
+        this.loadedChannels = new Set<string>();
     }
 
     get router(): Router | undefined {

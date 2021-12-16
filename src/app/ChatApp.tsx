@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router';
 import styled from 'styled-components';
 
 import ChannelSidebar from '../components/channels/ChannelSidebar';
+import MessageView from '../components/messaging/MessageView';
 
 import GuildSelect from '../components/guilds/GuildSelect';
 import GuildHomepage from '../pages/guilds/GuildHomepage';
@@ -11,9 +12,6 @@ import Homepage from '../pages/home/Homepage';
 import HomepageSidebar from '../pages/home/HomepageSidebar'
 
 import UserInfo from '../components/app/UserInfo';
-
-import FirstMessage from '../components/messaging/FirstMessage';
-import Message from '../components/messaging/Message';
 
 const ParentContainer = styled.div`
     display: grid;
@@ -56,7 +54,7 @@ export default function ChatApp() {
                 </Sidebar>
             </LeftGroup>
             <Routes>
-                <Route path='guilds/:guildId/:channelId' element={<></>} />
+                <Route path='guilds/:guildId/:channelId' element={<MessageView />} />
                 <Route path='guilds/:guildId' element={<GuildHomepage />} />
                 <Route path='*' element={<Homepage />} />
             </Routes>

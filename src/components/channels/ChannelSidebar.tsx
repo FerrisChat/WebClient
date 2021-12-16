@@ -35,7 +35,7 @@ export default function ChannelSidebar() {
             <GuildInfo>
                 {guild.name}
             </GuildInfo>
-            <ChannelSelect guild={guild} active={channelId == null} />
+            <ChannelSelect guild={guild} active={(channelId == null ? 1 : 0) as unknown as boolean} />
         </ChannelSidebarContainer>
     )
 }
