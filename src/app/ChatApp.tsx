@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router';
 import styled from 'styled-components';
 
 import ChannelSidebar from '../components/channels/ChannelSidebar';
-import MessageView from '../components/messaging/MessageView';
+import Chat from '../components/messaging/Chat';
 
 import GuildSelect from '../components/guilds/GuildSelect';
 import GuildHomepage from '../pages/guilds/GuildHomepage';
@@ -54,7 +54,7 @@ export default function ChatApp() {
                 </Sidebar>
             </LeftGroup>
             <Routes>
-                <Route path='guilds/:guildId/:channelId' element={<MessageView />} />
+                <Route path='guilds/:guildId/:channelId' element={<Chat />} />
                 <Route path='guilds/:guildId' element={<GuildHomepage />} />
                 <Route path='*' element={<Homepage />} />
             </Routes>

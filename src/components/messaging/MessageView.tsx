@@ -42,7 +42,7 @@ export class MessageManager<T extends (children?: ArrayOfChildren) => void = any
     }
 
     $addChild(child: Child) {
-        this.setChildren([ ...(this.children || []), child ])
+        this.setChildren([ ...(this.children ?? []), child ])
     }
 
     onReceivedMessage(message: Message) {
@@ -75,7 +75,7 @@ export class MessageManager<T extends (children?: ArrayOfChildren) => void = any
         }
     }
 
-    makeElement(message: Message, props?: MessageProps) {
+    makeElement(message: Message, props?: Partial<MessageProps>) {
         // Compare this message with the buffer.
         //
         // If the buffer is undefined, start a new group (obviously)
@@ -97,14 +97,14 @@ export class MessageManager<T extends (children?: ArrayOfChildren) => void = any
         return <Element {...props} message={message} key={message.id_string} />
     }
 
-    lazilyAddMessage(message: Message, props?: MessageProps) {
+    lazilyAddMessage(message: Message, props?: Partial<MessageProps>) {
         this.$addChild(this.makeElement(message, props))
     }
 
     sortMessages(messages?: Message[]) {
         messages ??= this.messages;
         return messages.sort((a: Message, b: Message): number => {
-            return BigInt(a.id_string) - BigInt(b.id_string) > 0 ? -1 : 1;
+            return BigInt(a.id_string) - BigInt(b.id_string) > 0 ? 1 : -1;
         })
     }
 
@@ -121,7 +121,9 @@ export class MessageManager<T extends (children?: ArrayOfChildren) => void = any
     rerenderMessages() {
         this.buffer = undefined;
         this.stored.clear();
-        this.setChildren(this.removeDupes(this.sortMessages(this.messages)).map(o => this.makeElement(o)))
+        this.setChildren(
+            this.removeDupes(this.sortMessages(this.messages)).map(o => this.makeElement(o))
+        )
     }
 
     async loadHistory(limit: number = 200, offset: number = 0) { 
@@ -139,8 +141,10 @@ export class MessageManager<T extends (children?: ArrayOfChildren) => void = any
 
 const Container = styled.div`
     display: flex;
+    flex-grow: 1;
     flex-direction: column-reverse;
     overflow-y: auto;
+    padding-bottom: 18px;
 `;
 
 export default function MessageView() {
@@ -153,19 +157,13 @@ export default function MessageView() {
         const manager = new MessageManager(channelId!, children, setChildren)
         setManager(manager);
 
-        ws?.addListener('MessageCreate', (_, e) => manager!.onReceivedMessage(e.message))
-        ws?.addListener('MessageDelete', (_, e) => manager!.onDeletedMessage(e.message))
-        return () => {
-            // this could possibly be removed, but adding this frees up the dangling listeners in memory
-            // when the chat window isn't open
-            ws?.removeListener('MessageCreate')
-            ws?.removeListener('MessageDelete')
-        }
+        ws?.bindMessageManager(manager)
+        return () => ws?.unbindMessageManager()
     }, [channelId])
 
     return (
         <Container onScroll={e => manager!.onScroll(e)}>
-            {children}
+            {children?.reverse()}
         </Container>
     )
 }

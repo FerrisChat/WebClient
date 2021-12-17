@@ -1,6 +1,9 @@
 import Cookies from 'js-cookie';
 
 import type API from '../api/API';
+
+import type { MessageManager } from '../components/messaging/MessageView';
+import type { Message } from '../types/objects';
 import type {
     IdentifyAccepted,
     MessageCreate,
@@ -25,20 +28,27 @@ export const WSEventHandlers: Record<string, WSEventHandler> = {
         }
     },
 
-    MessageCreate({ api: { messages } }, { message }: MessageCreate) {
+    MessageCreate({ api: { messages }, boundMessageManager: manager }, { message }: MessageCreate) {
         const channelId = message.channel_id_string;
         (
-            messages.get(channelId) ?? window.app.api.messages.set(channelId, []).get(channelId)!
+            messages.get(channelId)
+            ?? window.app.api.messages.set(channelId, []).get(channelId)!
         )
             .push(message);
+
+        if (manager?.channelId === channelId)
+            manager.onReceivedMessage?.apply(manager, [message])
     },
 
-    MessageDelete({ api }, { message }: MessageDelete) {
+    MessageDelete({ api, boundMessageManager: manager }, { message }: MessageDelete) {
         const messages = api.messages.get(message.channel_id_string);
         if (!messages) return;
         
         const index = messages.findIndex(msg => msg.id_string === message.id_string);
-        if (index) messages.splice(index, 1)
+        if (index) messages.splice(index, 1);
+
+        if (manager?.channelId === message.channel_id_string)
+            manager?.onDeletedMessage?.apply(manager, [message])
     },
 } as const
 
@@ -52,13 +62,12 @@ export default class WebSocketClient {
     _identified: boolean;
     _waiter?: (r: any) => void;
 
-    listeners: Map<string, WSEventHandler>;
+    boundMessageManager?: MessageManager;
 
     constructor(api: API) {
         this.api = api;
         this.mustKeepAlive = false;
         this._identified = false;
-        this.listeners = new Map<string, WSEventHandler>()
     }
 
     get rest() {
@@ -85,7 +94,6 @@ export default class WebSocketClient {
         if (event) {
             const data = parsed.d;
             WSEventHandlers[event]?.(this, data);
-            this.listeners.get(event)?.(this, data)
         };
     }
 
@@ -139,11 +147,11 @@ export default class WebSocketClient {
         this.ws!.send(JSON.stringify(json))
     }
     
-    addListener(event: string, callback: WSEventHandler) {
-        this.listeners.set(event, callback)
+    bindMessageManager(manager: MessageManager) {
+        this.boundMessageManager = manager;
     }
 
-    removeListener(event: string) {
-        this.listeners.delete(event)
+    unbindMessageManager() {
+        this.boundMessageManager = undefined;
     }
 }

@@ -107,9 +107,9 @@ export function makeTheme(theme: ThemeTemplate): ThemeTemplate {
 
 export const presetThemes: Record<string, ThemeTemplate> = {
     dark: makeTheme({
-        primary: '#35393b',
-        secondary: '#292e30',
-        tertiary: '#23231a',
+        primary: '#2f3335',
+        secondary: '#24292b',
+        tertiary: '#1d2224',
         quarternary: '#0a0b0b',
 
         text: '#ffffff',

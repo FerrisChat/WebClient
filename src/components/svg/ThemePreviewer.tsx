@@ -23,7 +23,7 @@ export default function ThemePreviewer({ theme }: { theme: SanitizedThemeTemplat
                     <rect x="752" width="148" height="540" rx="50" />
                     <rect x="65" width="159" height="540" />
                     <rect x="695" width="158" height="540" />
-                    <rect x="224" y="480" width="528" height="60" />
+                    <rect x="224" y="480" width="528" height="60" fill={theme.primary} />
                 </g>
                 <g>
                     <circle cx="40" cy="99" r="20" fill="#70E248" />
