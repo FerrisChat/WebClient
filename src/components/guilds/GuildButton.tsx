@@ -32,7 +32,7 @@ export default function GuildButton({ guild }: { guild: Guild }) {
 
     return (
         <GuildButtonContainer className={className} to={`/guilds/${guild.id_string}`}>
-            <img src={guild.avatar || defaultIcon} />
+            <img src={guild.icon || defaultIcon} />
         </GuildButtonContainer>
     )
 }

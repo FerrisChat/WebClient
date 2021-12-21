@@ -51,7 +51,7 @@ export interface Guild {
     name: string;
     channels?: Channel[];
     members?: Member[];
-    avatar?: string | null;
+    icon?: string | null;
     flags: number;
 }
 
