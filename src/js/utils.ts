@@ -1,4 +1,4 @@
-export const FERRIS_EPOCH_MS: number = 1_577_836_800_000;
+export const FERRIS_EPOCH_MS: number = 1_641_016_800_000;
 const BIGINT_64: bigint = BigInt(64);  // Some browsers do not support bigint literals (e.g. 64n)
 
 export function parseSnowflake(snowflake: string | bigint): Date {
